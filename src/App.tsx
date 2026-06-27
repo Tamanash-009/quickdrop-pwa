@@ -14,6 +14,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsAndConditions from "./components/TermsAndConditions";
+import Copyright from "./components/Copyright";
 import ExpandableFAB from "./components/ExpandableFAB";
 import EnquiryModal from "./components/EnquiryModal";
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
@@ -162,6 +163,11 @@ export default function App() {
               <TermsAndConditions onNavigateHome={() => navigate("/")} />
               <Footer onNavigate={navigate} />
             </>
+          ) : currentPath === "/copyright" ? (
+            <>
+              <Copyright />
+              <Footer onNavigate={navigate} />
+            </>
           ) : currentPath === "/" || currentPath === "" ? (
             <>
               {/* Header Sticky Glass Navigation */}
@@ -233,7 +239,7 @@ export default function App() {
             }} 
           />
           
-          {currentPath !== "/" && currentPath !== "" && currentPath !== "/privacy-policy" && currentPath !== "/terms-and-conditions" && (
+          {currentPath !== "/" && currentPath !== "" && currentPath !== "/privacy-policy" && currentPath !== "/terms-and-conditions" && currentPath !== "/copyright" && (
             <NotFound />
           )}
 

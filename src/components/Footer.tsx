@@ -1,6 +1,6 @@
 import { MouseEvent } from "react";
 import { motion } from "motion/react";
-import { ShieldCheck, Mail, Phone, MessageSquare, Heart, Clock } from "lucide-react";
+import { ShieldCheck, Mail, Phone, MessageSquare, Clock } from "lucide-react";
 import Logo from "./Logo";
 import { businessConfig } from "../config/business";
 
@@ -233,8 +233,8 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         {/* Footer Base bar: Copy, links, and design tag */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-brand-dark/50 font-bold tracking-wider">
-          <p>© {new Date().getFullYear()} QUICKDROP HYPERLOCAL. ALL RIGHTS RESERVED.</p>
-          <div className="flex gap-6">
+          <p>&copy; {new Date().getFullYear()} {businessConfig.name}. All Rights Reserved.</p>
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             <a
               href="/privacy-policy"
               onClick={(e) => handlePageLink(e, "/privacy-policy")}
@@ -251,19 +251,17 @@ export default function Footer({ onNavigate }: FooterProps) {
             >
               TERMS & CONDITIONS
             </a>
-          </div>
-          <div className="flex items-center gap-1">
-            <span>DESIGNED BY</span>
             <a
-              href="https://www.linkedin.com/in/tamanashchakraborty"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand-primary font-bold hover:underline transition-all cursor-pointer"
-              id="footer-designer-link"
+              href="/copyright"
+              onClick={(e) => handlePageLink(e, "/copyright")}
+              className="hover:text-brand-primary transition-colors"
+              id="footer-copyright-link"
             >
-              TAMANASH CHAKRABORTY
+              COPYRIGHT
             </a>
-            <Heart size={10} className="text-rose-500 fill-rose-500 animate-pulse" />
+          </div>
+          <div className="flex items-center gap-1 uppercase">
+            <span>Designed & Developed for {businessConfig.name}.</span>
           </div>
         </div>
 

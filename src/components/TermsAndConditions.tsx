@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { ArrowLeft, Scale, Clock } from "lucide-react";
+import { businessConfig } from "../config/business";
 import Logo from "./Logo";
 
 interface TermsAndConditionsProps {
@@ -145,10 +146,22 @@ export default function TermsAndConditions({ onNavigateHome }: TermsAndCondition
             <section className="flex flex-col gap-3">
               <h2 className="font-display font-bold text-lg md:text-xl text-brand-dark flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-brand-primary rounded-full inline-block" />
-                8. Intellectual Property Rights
+                8. Intellectual Property & Website Protection
               </h2>
               <p className="text-sm text-brand-dark/75 leading-relaxed">
-                All software components, UI layouts, interactive canvas systems, color themes, vector graphics, logos, and custom copy hosted on QuickDrop remain the exclusive property of QuickDrop Hyperlocal and Tamanash Chakraborty. Reproduction, copying, or reverse-engineering is strictly prohibited.
+                All software components, UI layouts, interactive canvas systems, color themes, vector graphics, logos, source code, and custom copy hosted on {businessConfig.name} remain the exclusive property of {businessConfig.name}. By accessing our website, you expressly agree that:
+              </p>
+              <ul className="list-disc list-inside text-sm text-brand-dark/70 space-y-1.5 pl-2 mt-2">
+                <li>Reverse engineering is prohibited.</li>
+                <li>Commercial reuse is prohibited.</li>
+                <li>Republishing the website design is prohibited.</li>
+                <li>Copying the UI/UX is prohibited.</li>
+                <li>Copying graphics is prohibited.</li>
+                <li>Copying logos is prohibited.</li>
+                <li>Copying source code is prohibited.</li>
+              </ul>
+              <p className="text-sm font-bold text-red-500/90 mt-2">
+                Unauthorized commercial use may result in legal action where permitted by applicable law.
               </p>
             </section>
 
@@ -197,14 +210,14 @@ export default function TermsAndConditions({ onNavigateHome }: TermsAndCondition
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono font-bold mt-2">
                 <div className="p-4 rounded-xl bg-white/40 border border-brand-dark/5">
                   <span className="text-brand-dark/40 block text-[9px] uppercase tracking-wider">EMAIL DIRECTORY</span>
-                  <a href="mailto:qdrop5262@gmail.com" className="text-brand-primary text-sm hover:underline mt-1 block font-sans">
-                    qdrop5262@gmail.com
+                  <a href={`mailto:${businessConfig.contact.email}`} className="text-brand-primary text-sm hover:underline mt-1 block font-sans">
+                    {businessConfig.contact.email}
                   </a>
                 </div>
                 <div className="p-4 rounded-xl bg-white/40 border border-brand-dark/5">
                   <span className="text-brand-dark/40 block text-[9px] uppercase tracking-wider">WHATSAPP DISPATCH</span>
-                  <a href="https://wa.me/917001055879" target="_blank" rel="noreferrer" className="text-brand-primary text-sm hover:underline mt-1 block font-sans">
-                    +91 70010 55879
+                  <a href={`https://wa.me/${businessConfig.contact.whatsapp}`} target="_blank" rel="noreferrer" className="text-brand-primary text-sm hover:underline mt-1 block font-sans">
+                    {businessConfig.contact.phone}
                   </a>
                 </div>
               </div>

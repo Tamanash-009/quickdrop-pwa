@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Prevent indexing of development artifacts and configurations
+Disallow: /*.map$
+Disallow: /*.json$
+Disallow: /dist/
+Disallow: /.vercel/
+
 Sitemap: https://quickdrop-silk.vercel.app/sitemap.xml
