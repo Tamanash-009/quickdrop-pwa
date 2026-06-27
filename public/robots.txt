@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://quickdrop-kolkata.vercel.app/sitemap.xml
+Sitemap: https://quickdrop-silk.vercel.app/sitemap.xml

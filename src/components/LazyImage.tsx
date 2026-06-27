@@ -134,6 +134,8 @@ export default function LazyImage({
         <motion.img
           src={imageSrc}
           alt={alt}
+          loading="lazy"
+          decoding="async"
           referrerPolicy={referrerPolicy}
           onLoad={() => setIsLoaded(true)}
           onError={() => {

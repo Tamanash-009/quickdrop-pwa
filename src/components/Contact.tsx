@@ -1,6 +1,8 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Phone, Mail, MapPin, Send, MessageSquare, CheckCircle, Sparkles, AlertCircle } from "lucide-react";
+import { businessConfig } from "../config/business";
+import { trackEvent, trackSocialClick } from "../utils/analytics";
 
 const socialChannels = [
   {
@@ -25,7 +27,7 @@ const socialChannels = [
     label: "💬 WhatsApp Business",
     desc: "Connect with our dispatch desk for fast order catalog support.",
     action: "Start Chatting",
-    href: "https://wa.me/917001055879",
+    href: `https://wa.me/${businessConfig.contact.whatsapp}`,
     accentColor: "#25D366",
     hoverBg: "hover:bg-[#25D366]/5 hover:border-[#25D366]/30",
     icon: (
@@ -184,7 +186,10 @@ Thank you.`;
 
       // Open official WhatsApp Click-to-chat in a new tab
       const encodedMessage = encodeURIComponent(templateMessage);
-      const whatsappUrl = `https://wa.me/917001055879?text=${encodedMessage}`;
+      const whatsappUrl = `https://wa.me/${businessConfig.contact.whatsapp}?text=${encodedMessage}`;
+      
+      trackEvent("contact_form_submit", "engagement", "WhatsApp Contact Submit");
+      
       window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
       // Reset Form fields
@@ -217,7 +222,10 @@ Please contact me at your earliest convenience.
 
 Thank you.`;
 
-    const mailtoUrl = `mailto:qdrop5262@gmail.com?subject=${encodeURIComponent(subjectText)}&body=${encodeURIComponent(bodyText)}`;
+    const mailtoUrl = `mailto:${businessConfig.contact.email}?subject=${encodeURIComponent(subjectText)}&body=${encodeURIComponent(bodyText)}`;
+    
+    trackEvent("contact_email_alternative", "engagement", "Email Alternative Click");
+    
     window.location.href = mailtoUrl;
   };
 
@@ -258,6 +266,7 @@ Thank you.`;
               href={chan.href}
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackSocialClick(chan.name)}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -305,6 +314,7 @@ Thank you.`;
                 href={chan.href}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackSocialClick(chan.name)}
                 whileTap={{ scale: 0.9 }}
                 className="w-12 h-12 rounded-full bg-white/95 shadow-sm border border-brand-dark/10 flex items-center justify-center transition-all hover:scale-105"
                 aria-label={chan.name}
@@ -336,8 +346,8 @@ Thank you.`;
                 </div>
                 <div>
                   <h4 className="font-display font-bold text-xs text-brand-dark/50 uppercase tracking-widest">Phone Support</h4>
-                  <a href="tel:+917001055879" className="text-base font-extrabold text-brand-dark hover:text-brand-primary transition-colors mt-0.5 block">
-                    +91 70010 55879
+                  <a href={`tel:${businessConfig.contact.phone}`} onClick={() => trackEvent("contact_phone_click", "engagement", "Phone Click")} className="text-base font-extrabold text-brand-dark hover:text-brand-primary transition-colors mt-0.5 block">
+                    {businessConfig.contact.phone}
                   </a>
                 </div>
               </motion.div>
@@ -352,8 +362,8 @@ Thank you.`;
                 </div>
                 <div>
                   <h4 className="font-display font-bold text-xs text-brand-dark/50 uppercase tracking-widest">WhatsApp Dispatch</h4>
-                  <a href="https://wa.me/917001055879" target="_blank" rel="noreferrer" className="text-base font-extrabold text-brand-dark hover:text-brand-primary transition-colors mt-0.5 block">
-                    +91 70010 55879
+                  <a href={`https://wa.me/${businessConfig.contact.whatsapp}`} onClick={() => trackEvent("contact_whatsapp_click", "engagement", "WhatsApp Click")} target="_blank" rel="noreferrer" className="text-base font-extrabold text-brand-dark hover:text-brand-primary transition-colors mt-0.5 block">
+                    {businessConfig.contact.whatsapp}
                   </a>
                 </div>
               </motion.div>
@@ -368,8 +378,8 @@ Thank you.`;
                 </div>
                 <div>
                   <h4 className="font-display font-bold text-xs text-brand-dark/50 uppercase tracking-widest">Email Relations</h4>
-                  <a href="mailto:qdrop5262@gmail.com" className="text-base font-extrabold text-brand-dark hover:text-brand-primary transition-colors mt-0.5 block">
-                    qdrop5262@gmail.com
+                  <a href={`mailto:${businessConfig.contact.email}`} onClick={() => trackEvent("contact_email_click", "engagement", "Email Click")} className="text-base font-extrabold text-brand-dark hover:text-brand-primary transition-colors mt-0.5 block">
+                    {businessConfig.contact.email}
                   </a>
                 </div>
               </motion.div>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { businessConfig } from "../config/business";
+import { trackWhatsAppClick } from "../utils/analytics";
 
 interface EnquiryModalProps {
   isOpen: boolean;
@@ -244,9 +246,12 @@ Language: ${browserLang}${detectedCityContext}
 Thank you.`;
 
     // Click-to-Chat URL
-    const targetPhone = "917001055879";
+    const targetPhone = businessConfig.contact.whatsapp;
     const encodedMsg = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${targetPhone}?text=${encodedMsg}`;
+
+    // Track the analytics event
+    trackWhatsAppClick(productName);
 
     // Open instantly
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");

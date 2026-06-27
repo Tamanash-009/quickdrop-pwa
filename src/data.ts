@@ -1105,28 +1105,28 @@ export const testimonialData: TestimonialItem[] = [
 export const faqData: FAQItem[] = [
   {
     id: "faq1",
-    question: "How does the WhatsApp Enquiry System work?",
-    answer: "Browse our catalog of fast foods, groceries, dairy, stationery, and daily needs. Click 'Connect Now' on any product to open our smart Enquiry Modal. Fill in your name, contact, and address once. We'll automatically generate a beautifully structured WhatsApp message and open WhatsApp Click-to-Chat. You'll instantly connect directly to our dispatch operator!"
+    question: "What areas does QuickDrop serve?",
+    answer: "QuickDrop provides fast hyperlocal delivery services across Salt Lake, New Town, Sector V, and Rajarhat in Kolkata."
   },
   {
     id: "faq2",
-    question: "Do you remember my delivery details?",
-    answer: "Yes, with your consent! By checking 'Remember my details on this device', we securely store your name, mobile number, and address in your local browser storage. For future enquiries, all your details will be auto-filled so you only need to press 'Send via WhatsApp'."
+    question: "How fast is QuickDrop delivery?",
+    answer: "QuickDrop guarantees delivery within 30 to 45 minutes for all supported hyperlocal areas in Kolkata. Our dedicated local riders optimize block-by-block for ultra-rapid response times."
   },
   {
     id: "faq3",
-    question: "How does QuickDrop deliver in under 30 minutes?",
-    answer: "We employ a hyper-local routing system that pairs your WhatsApp enquiry with the closest certified neighborhood store and our nearest active delivery partner in Salt Lake. By optimizing block-by-block, we ensure ultra-rapid response times."
+    question: "Does QuickDrop deliver groceries and medicines?",
+    answer: "Yes, QuickDrop delivers a wide variety of items including fresh groceries, fruits, vegetables, dairy, pharmacy medicines, stationery, and daily household needs."
   },
   {
     id: "faq4",
-    question: "Is there a minimum order limit?",
-    answer: "There is absolutely no minimum order limit! Whether you need a single pen from stationery, one bottle of milk, or a full daily needs list, we'll coordinate and deliver it with the same premium care."
+    question: "How do I order from QuickDrop using WhatsApp?",
+    answer: "Browse our catalog, click 'Connect Now' on any product, and fill out your address. We automatically generate a beautifully structured WhatsApp message and open WhatsApp Click-to-Chat so you can instantly connect directly with our dispatch operator."
   },
   {
     id: "faq5",
-    question: "How do you check the quality of fresh food and agricultural goods?",
-    answer: "Our riders use insulated thermal cargo bags that keep fast food hot while keeping dairy, fruits, and vegetables perfectly chilled. Our quality assurance team inspects each grocery item individually before dispatching."
+    question: "Is there a minimum order limit for QuickDrop?",
+    answer: "There is absolutely no minimum order limit. Whether you need a single pen, one bottle of milk, or a full daily grocery list, QuickDrop will coordinate and deliver it with premium care."
   }
 ];
 

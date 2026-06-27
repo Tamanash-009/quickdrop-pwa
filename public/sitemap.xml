@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://quickdrop-kolkata.vercel.app/</loc>
-    <lastmod>2026-06-27</lastmod>
+    <loc>https://quickdrop-silk.vercel.app/</loc>
+    <lastmod>2026-06-27T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://quickdrop-kolkata.vercel.app/privacy-policy</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://quickdrop-kolkata.vercel.app/terms-and-conditions</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
   </url>
 </urlset>

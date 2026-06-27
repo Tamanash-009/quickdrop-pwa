@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { Home, Grid, Search, User, PhoneCall } from "lucide-react";
+import { Home, Grid, Search, PhoneCall } from "lucide-react";
 import { handleCallNowClick } from "../utils";
+import { trackEvent, trackCallClick } from "../utils/analytics";
 
 interface MobileNavProps {
   activeSection: string;
@@ -54,7 +55,9 @@ export default function MobileNav({ activeSection, onNavigate }: MobileNavProps)
               <button
                 key={item.id}
                 onClick={() => {
+                  trackEvent("mobile_nav_click", "navigation", item.label);
                   if (item.action) {
+                    if (item.id === "call") trackCallClick();
                     item.action();
                   } else if (item.href) {
                     onNavigate(item.href);

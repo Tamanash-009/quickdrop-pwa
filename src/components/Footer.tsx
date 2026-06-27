@@ -2,6 +2,7 @@ import { MouseEvent } from "react";
 import { motion } from "motion/react";
 import { ShieldCheck, Mail, Phone, MessageSquare, Heart, Clock } from "lucide-react";
 import Logo from "./Logo";
+import { businessConfig } from "../config/business";
 
 const socialPlatforms = [
   {
@@ -200,19 +201,19 @@ export default function Footer({ onNavigate }: FooterProps) {
             <div className="flex flex-col gap-3.5">
               <div className="flex items-center gap-2.5 text-sm font-semibold text-brand-dark/70">
                 <Mail size={14} className="text-brand-cyan" />
-                <a href="mailto:qdrop5262@gmail.com" className="hover:text-brand-primary transition-colors">qdrop5262@gmail.com</a>
+                <a href={`mailto:${businessConfig.contact.email}`} className="hover:text-brand-primary transition-colors">{businessConfig.contact.email}</a>
               </div>
               <div className="flex items-center gap-2.5 text-sm font-semibold text-brand-dark/70">
                 <Phone size={14} className="text-brand-cyan" />
-                <a href="tel:+917001055879" className="hover:text-brand-primary transition-colors">+91 70010 55879</a>
+                <a href={`tel:${businessConfig.contact.phone}`} className="hover:text-brand-primary transition-colors">{businessConfig.contact.phone}</a>
               </div>
               <div className="flex items-center gap-2.5 text-sm font-semibold text-brand-dark/70">
                 <MessageSquare size={14} className="text-emerald-500 fill-emerald-500/10 animate-pulse" />
-                <a href="https://wa.me/917001055879" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors">+91 70010 55879</a>
+                <a href={`https://wa.me/${businessConfig.contact.whatsapp}`} target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors">{businessConfig.contact.phone}</a>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-brand-dark/60 font-mono font-bold mt-1">
                 <Clock size={13} className="text-brand-cyan" />
-                <span>Mon – Sun: 8 AM – 10 PM</span>
+                <span>{businessConfig.hours.days}: {businessConfig.hours.openTime} – {businessConfig.hours.closeTime}</span>
               </div>
               
               {/* Trust Badge Card */}

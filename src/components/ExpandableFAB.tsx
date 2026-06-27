@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { MessageCircle, Phone, MapPin, Mail, Plus, X } from "lucide-react";
+import { MessageCircle, Phone, MapPin, Mail, Plus } from "lucide-react";
 import { handleWhatsAppClick, handleCallNowClick } from "../utils";
+import { businessConfig } from "../config/business";
+import { trackWhatsAppClick, trackCallClick, trackEvent } from "../utils/analytics";
 
 export default function ExpandableFAB() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +30,8 @@ export default function ExpandableFAB() {
       color: "bg-[#25D366]",
       textColor: "text-white",
       onClick: () => {
-        handleWhatsAppClick();
+        trackWhatsAppClick("General Enquiry");
+        handleWhatsAppClick("General Enquiry");
         setIsOpen(false);
       },
     },
@@ -39,6 +42,7 @@ export default function ExpandableFAB() {
       color: "bg-brand-primary",
       textColor: "text-white",
       onClick: () => {
+        trackCallClick();
         handleCallNowClick();
         setIsOpen(false);
       },
@@ -50,7 +54,8 @@ export default function ExpandableFAB() {
       color: "bg-amber-500",
       textColor: "text-white",
       onClick: () => {
-        window.location.href = "mailto:qdrop5262@gmail.com";
+        trackEvent("email_click", "engagement", "Email Support");
+        window.location.href = `mailto:${businessConfig.contact.email}`;
         setIsOpen(false);
       },
     },
@@ -61,6 +66,7 @@ export default function ExpandableFAB() {
       color: "bg-rose-500",
       textColor: "text-white",
       onClick: () => {
+        trackEvent("map_find_us", "engagement", "Find Us Click");
         const element = document.querySelector("#contact");
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
@@ -99,6 +105,7 @@ export default function ExpandableFAB() {
                   </span>
                   <button
                     onClick={action.onClick}
+                    aria-label={action.label}
                     className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 active:scale-95 ${action.color} ${action.textColor}`}
                   >
                     <Icon size={20} />

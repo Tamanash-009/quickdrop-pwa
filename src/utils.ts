@@ -1,5 +1,7 @@
+import { businessConfig } from "./config/business";
+
 export function getWhatsAppUrl(productOrServiceName: string): string {
-  const phoneNumber = "917001055879";
+  const phoneNumber = businessConfig.contact.whatsapp;
   const message = `Hello QuickDrop Team 👋
 
 I am interested in the following item:
@@ -35,7 +37,7 @@ export function handleWhatsAppClick(productOrServiceName: string) {
 }
 
 export function handleCallNowClick() {
-  window.location.href = "tel:+917001055879";
+  window.location.href = `tel:${businessConfig.contact.phone}`;
 }
 
 export function scrollToContact() {

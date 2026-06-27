@@ -22,6 +22,9 @@ import ScrollProgress from "./components/ScrollProgress";
 import NotFound from "./components/NotFound";
 import PremiumLoading from "./components/PremiumLoading";
 import DeliveryCoverage from "./components/DeliveryCoverage";
+import SEO from "./components/SEO";
+import CookieConsent from "./components/CookieConsent";
+import StructuredData from "./components/StructuredData";
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState("All Products");
@@ -123,6 +126,9 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-brand-light font-sans selection:bg-brand-primary/20 selection:text-brand-primary antialiased">
+      <SEO />
+      <StructuredData />
+      <CookieConsent />
       
       {/* Premium First-impression Preloader */}
       <AnimatePresence mode="wait">
