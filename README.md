@@ -1,20 +1,38 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+  <img src="./public/quickdrop_logo.png" alt="QuickDrop Logo" width="150" height="150" />
+  <h1>QuickDrop</h1>
+  <p><strong>A modern, lightning-fast PWA for seamless delivery and e-commerce.</strong></p>
 </div>
 
-# Run and deploy your AI Studio app
+<div align="center">
+  <img src="./public/quickdrop_banner.png" alt="QuickDrop Banner" width="100%" />
+</div>
 
-This contains everything you need to run your app locally.
+## 🚀 Overview
 
-View your app in AI Studio: https://ai.studio/apps/1e24a47d-9a2a-4d3f-b2eb-0e940baa4970
+QuickDrop is a state-of-the-art Progressive Web App (PWA) designed for modern e-commerce and delivery services. Built with React and Vite, it offers blazing-fast performance, a beautiful UI, and a seamless user experience across all devices.
 
-## Run Locally
+## ✨ Features
 
-**Prerequisites:**  Node.js
+- **Progressive Web App**: Installable on mobile and desktop, works offline.
+- **Lightning Fast**: Built with Vite and React 19 for optimal performance.
+- **Modern UI**: Sleek, intuitive interface powered by TailwindCSS and Framer Motion.
+- **Seamless Delivery**: Interactive delivery components and integrated checkout.
 
+## 🛠️ Run Locally
+
+**Prerequisites:** Node.js
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+2. Set any required environment variables in `.env` or `.env.local` (e.g., `GEMINI_API_KEY`).
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Build for production:
+   ```bash
+   npm run build
+   ```
