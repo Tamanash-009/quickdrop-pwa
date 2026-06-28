@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+// @ts-expect-error - Vite PWA virtual module
 import { useRegisterSW } from 'virtual:pwa-register/react';
 import { toast } from 'sonner';
 
