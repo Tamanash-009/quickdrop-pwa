@@ -1,39 +1,38 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Services from "./components/Services";
-import WhyChooseUs from "./components/WhyChooseUs";
-import DeliveryProcess from "./components/DeliveryProcess";
-import FeaturedCategories from "./components/FeaturedCategories";
-import Recommended from "./components/Recommended";
-import AboutUs from "./components/AboutUs";
-import Reviews from "./components/Reviews";
-import FAQ from "./components/FAQ";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import PrivacyPolicy from "./components/PrivacyPolicy";
-import TermsAndConditions from "./components/TermsAndConditions";
-import Copyright from "./components/Copyright";
-import ExpandableFAB from "./components/ExpandableFAB";
-import EnquiryModal from "./components/EnquiryModal";
-import PWAInstallPrompt from "./components/PWAInstallPrompt";
 import MobileNav from "./components/MobileNav";
 import ScrollProgress from "./components/ScrollProgress";
-import NotFound from "./components/NotFound";
-import PremiumLoading from "./components/PremiumLoading";
-import DeliveryCoverage from "./components/DeliveryCoverage";
 import SEO from "./components/SEO";
-import CookieConsent from "./components/CookieConsent";
 import StructuredData from "./components/StructuredData";
-import { useNotification } from "./context/NotificationContext";
 import CoverageBanner from "./components/CoverageBanner";
-import CartDrawer from "./components/CartDrawer";
-import CheckoutModal from "./components/CheckoutModal";
-
+import AppSkeleton from "./components/skeletons/AppSkeleton";
+import { useNotification } from "./context/NotificationContext";
 import { AuthProvider } from "./auth/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
-import AppSkeleton from "./components/skeletons/AppSkeleton";
+
+const Services = lazy(() => import("./components/Services"));
+const WhyChooseUs = lazy(() => import("./components/WhyChooseUs"));
+const DeliveryProcess = lazy(() => import("./components/DeliveryProcess"));
+const FeaturedCategories = lazy(() => import("./components/FeaturedCategories"));
+const Recommended = lazy(() => import("./components/Recommended"));
+const AboutUs = lazy(() => import("./components/AboutUs"));
+const Reviews = lazy(() => import("./components/Reviews"));
+const FAQ = lazy(() => import("./components/FAQ"));
+const Contact = lazy(() => import("./components/Contact"));
+const Footer = lazy(() => import("./components/Footer"));
+const PrivacyPolicy = lazy(() => import("./components/PrivacyPolicy"));
+const TermsAndConditions = lazy(() => import("./components/TermsAndConditions"));
+const Copyright = lazy(() => import("./components/Copyright"));
+const ExpandableFAB = lazy(() => import("./components/ExpandableFAB"));
+const EnquiryModal = lazy(() => import("./components/EnquiryModal"));
+const PWAInstallPrompt = lazy(() => import("./components/PWAInstallPrompt"));
+const NotFound = lazy(() => import("./components/NotFound"));
+const DeliveryCoverage = lazy(() => import("./components/DeliveryCoverage"));
+const CookieConsent = lazy(() => import("./components/CookieConsent"));
+const CartDrawer = lazy(() => import("./components/CartDrawer"));
+const CheckoutModal = lazy(() => import("./components/CheckoutModal"));
 
 export default function App() {
   const { info } = useNotification();
@@ -152,6 +151,7 @@ export default function App() {
           <StructuredData />
           <CookieConsent />
           
+          <Suspense fallback={<AppSkeleton />}>
           {/* Main Page Core Content Grid */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -258,6 +258,7 @@ export default function App() {
             <CartDrawer onCheckout={() => setIsCheckoutOpen(true)} />
             <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
           </motion.div>
+          </Suspense>
       </div>
       </AuthProvider>
     </ThemeProvider>
