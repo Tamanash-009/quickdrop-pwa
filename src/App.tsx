@@ -61,7 +61,7 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500); // 1.5 seconds simulated load
+    }, 400); // 0.4 seconds simulated load
     return () => clearTimeout(timer);
   }, []);
 

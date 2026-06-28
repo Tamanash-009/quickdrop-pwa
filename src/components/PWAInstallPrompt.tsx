@@ -23,7 +23,7 @@ export default function PWAInstallPrompt() {
         if (!hasDismissed) {
           setShowPrompt(true);
         }
-      }, 5000); // 5 seconds after load
+      }, 2000); // 2 seconds after load
     };
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);

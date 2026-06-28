@@ -3,19 +3,7 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    {
-      "source": "/assets/(.*\\.(png|jpe?g|svg|webp|gif))",
-      "has": [
-        {
-          "type": "header",
-          "key": "sec-fetch-site",
-          "value": "cross-site"
-        }
-      ],
-      "destination": "/403"
-    }
-  ],
+
   "headers": [
     {
       "source": "/(.*)",
