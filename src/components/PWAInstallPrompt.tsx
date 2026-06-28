@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Download, X } from "lucide-react";
 import Logo from "./Logo";
+import { useNotification } from "../context/NotificationContext";
 
 export default function PWAInstallPrompt() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [installPromptEvent, setInstallPromptEvent] = useState<any>(null);
   const [showPrompt, setShowPrompt] = useState(false);
+  const { success } = useNotification();
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -42,6 +44,7 @@ export default function PWAInstallPrompt() {
     
     if (outcome === "accepted") {
       setShowPrompt(false);
+      success("App Installed!", "QuickDrop is now available on your home screen.");
     }
     
     // We've used the prompt, and can't use it again, throw it away
@@ -63,13 +66,13 @@ export default function PWAInstallPrompt() {
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
           className="fixed bottom-24 lg:bottom-8 left-4 right-4 lg:left-auto lg:right-8 z-[100] max-w-sm w-full mx-auto"
         >
-          <div className="glass-card bg-white/80 border border-white/60 p-4 rounded-3xl shadow-[0_12px_40px_rgba(14,165,233,0.15)] flex flex-col gap-4 relative overflow-hidden">
+          <div className="glass-card bg-surface/80 border border-white/60 p-4 rounded-3xl shadow-[0_12px_40px_rgba(14,165,233,0.15)] flex flex-col gap-4 relative overflow-hidden">
             {/* Ambient Background Glow */}
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-primary/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
             
             <button 
               onClick={handleDismiss}
-              className="absolute top-3 right-3 p-1.5 rounded-full text-brand-dark/40 hover:text-brand-dark hover:bg-brand-dark/5 transition-colors z-10"
+              className="absolute top-3 right-3 p-1.5 rounded-full text-on-surface/40 hover:text-on-surface hover:bg-on-surface/5 transition-colors z-10"
             >
               <X size={16} />
             </button>
@@ -79,14 +82,14 @@ export default function PWAInstallPrompt() {
                 <Logo className="h-7" showText={false} />
               </div>
               <div>
-                <h3 className="font-display font-extrabold text-brand-dark text-sm leading-tight">Install QuickDrop App</h3>
-                <p className="text-[11px] font-sans text-brand-dark/60 mt-0.5">Faster loading, offline mode, and 1-tap access.</p>
+                <h3 className="font-display font-extrabold text-on-surface text-sm leading-tight">Install QuickDrop App</h3>
+                <p className="text-[11px] font-sans text-on-surface-variant mt-0.5">Faster loading, offline mode, and 1-tap access.</p>
               </div>
             </div>
             
             <button
               onClick={handleInstall}
-              className="w-full py-2.5 rounded-xl bg-brand-primary text-white text-xs font-bold uppercase tracking-wider shadow-md hover:bg-brand-primary/90 hover:shadow-lg transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-xl bg-primary text-on-primary text-xs font-bold uppercase tracking-wider shadow-md hover:bg-primary/90 hover:shadow-lg transition-all flex items-center justify-center gap-2"
             >
               <Download size={14} />
               <span>Install to Home Screen</span>

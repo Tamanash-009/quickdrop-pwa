@@ -26,14 +26,24 @@ import DeliveryCoverage from "./components/DeliveryCoverage";
 import SEO from "./components/SEO";
 import CookieConsent from "./components/CookieConsent";
 import StructuredData from "./components/StructuredData";
+import { useNotification } from "./context/NotificationContext";
+import CoverageBanner from "./components/CoverageBanner";
+import CartDrawer from "./components/CartDrawer";
+import CheckoutModal from "./components/CheckoutModal";
+
+import { AuthProvider } from "./auth/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext";
+import AppSkeleton from "./components/skeletons/AppSkeleton";
 
 export default function App() {
+  const { info } = useNotification();
   const [selectedCategory, setSelectedCategory] = useState("All Products");
   const [activeSection, setActiveSection] = useState("home");
   const [isLoading, setIsLoading] = useState(true);
   
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const [enquiryProduct, setEnquiryProduct] = useState("");
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const handleOpenEnquiry = (productName: string) => {
     setEnquiryProduct(productName);
@@ -46,6 +56,14 @@ export default function App() {
     }
     return window.location.pathname;
   });
+
+  // Simulated asynchronous data fetching delay for the Skeleton system
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500); // 1.5 seconds simulated load
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleLocationChange = () => {
@@ -112,6 +130,7 @@ export default function App() {
 
   const handleStartOrdering = () => {
     setSelectedCategory("All Products");
+    info("Ready to Order?", "Browse our catalog and tap Connect on any product.");
     const element = document.querySelector("#featured");
     if (element) {
       const offset = 80;
@@ -126,130 +145,121 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-brand-light font-sans selection:bg-brand-primary/20 selection:text-brand-primary antialiased">
-      <SEO />
-      <StructuredData />
-      <CookieConsent />
-      
-      {/* Premium First-impression Preloader */}
-      <AnimatePresence mode="wait">
-        {isLoading && (
+    <ThemeProvider>
+      <AuthProvider>
+        <div className="relative min-h-screen bg-background font-sans selection:bg-primary/20 selection:text-primary antialiased transition-colors duration-500 text-on-surface">
+          <SEO />
+          <StructuredData />
+          <CookieConsent />
+          
+          {/* Main Page Core Content Grid */}
           <motion.div
-            key="preloader"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.96, filter: "blur(12px)" }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="fixed inset-0 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
           >
-            <PremiumLoading onComplete={() => setIsLoading(false)} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Main Page Core Content Grid */}
-      {!isLoading && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-        >
-          {currentPath === "/privacy-policy" ? (
-            <>
-              <PrivacyPolicy onNavigateHome={() => navigate("/")} />
-              <Footer onNavigate={navigate} />
-            </>
-          ) : currentPath === "/terms-and-conditions" ? (
-            <>
-              <TermsAndConditions onNavigateHome={() => navigate("/")} />
-              <Footer onNavigate={navigate} />
-            </>
-          ) : currentPath === "/copyright" ? (
-            <>
-              <Copyright />
-              <Footer onNavigate={navigate} />
-            </>
-          ) : currentPath === "/" || currentPath === "" ? (
-            <>
-              {/* Header Sticky Glass Navigation */}
-              <ScrollProgress />
-              <Navbar
-                activeSection={activeSection}
-                onSelectCategory={handleSelectCategory}
-                onEnquiry={handleOpenEnquiry}
-              />
-
-              {/* Interactive Core Blocks */}
-              <main>
-                {/* Hero Showcase Block */}
-                <Hero onStartOrdering={handleStartOrdering} />
-
-                {/* Offerings service cards */}
-                <Services onSelectCategory={handleSelectCategory} />
-
-                {/* Why Choose Us Pillars */}
-                <WhyChooseUs />
-
-                {/* Connective timeline animation */}
-                <DeliveryProcess />
-
-                {/* ⭐ Recommended For You Section */}
-                <Recommended onEnquiry={handleOpenEnquiry} />
-
-                {/* Interactive Market Shelf catalog */}
-                <FeaturedCategories
-                  selectedCategory={selectedCategory}
-                  setSelectedCategory={setSelectedCategory}
+            {currentPath === "/privacy-policy" ? (
+              <>
+                <PrivacyPolicy onNavigateHome={() => navigate("/")} />
+                <Footer onNavigate={navigate} />
+              </>
+            ) : currentPath === "/terms-and-conditions" ? (
+              <>
+                <TermsAndConditions onNavigateHome={() => navigate("/")} />
+                <Footer onNavigate={navigate} />
+              </>
+            ) : currentPath === "/copyright" ? (
+              <>
+                <Copyright />
+                <Footer onNavigate={navigate} />
+              </>
+            ) : currentPath === "/" || currentPath === "" ? (
+              <>
+                {/* Header Sticky Glass Navigation */}
+                <CoverageBanner />
+                <ScrollProgress />
+                <Navbar
+                  activeSection={activeSection}
+                  onSelectCategory={handleSelectCategory}
                   onEnquiry={handleOpenEnquiry}
                 />
+                
+                {/* Interactive Core Blocks */}
+                <main>
+                  <AnimatePresence mode="wait">
+                    {isLoading ? (
+                      <motion.div
+                        key="skeleton"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        <AppSkeleton />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="content"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Hero onStartOrdering={handleStartOrdering} />
+                        <Services onSelectCategory={handleSelectCategory} />
+                        <WhyChooseUs />
+                        <DeliveryProcess />
+                        <Recommended onEnquiry={handleOpenEnquiry} />
+                        <FeaturedCategories
+                          selectedCategory={selectedCategory}
+                          setSelectedCategory={setSelectedCategory}
+                          onEnquiry={handleOpenEnquiry}
+                        />
+                        <AboutUs />
+                        <Reviews />
+                        <FAQ />
+                        <Contact />
+                        <div className="max-w-7xl mx-auto px-6 md:px-12 mt-12 mb-8">
+                          <DeliveryCoverage />
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </main>
 
-                {/* Story & Split Bento metrics */}
-                <AboutUs />
+                {/* Clean Glassmorphic Footer */}
+                {!isLoading && <Footer onNavigate={navigate} />}
+              </>
+            ) : null}
+            <ExpandableFAB />
+            <PWAInstallPrompt />
+            <MobileNav 
+              activeSection={activeSection} 
+              onNavigate={(href) => {
+                const element = document.querySelector(href);
+                if (element) {
+                  const offset = 80;
+                  const elementPosition = element.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - offset;
+                  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                }
+              }} 
+            />
+            
+            {currentPath !== "/" && currentPath !== "" && currentPath !== "/privacy-policy" && currentPath !== "/terms-and-conditions" && currentPath !== "/copyright" && (
+              <NotFound />
+            )}
 
-                {/* Interactive review carousels */}
-                <Reviews />
+            <EnquiryModal
+              isOpen={isEnquiryOpen}
+              onClose={() => setIsEnquiryOpen(false)}
+              productName={enquiryProduct}
+            />
 
-                {/* Dynamic height accordions */}
-                <FAQ />
-
-                {/* Vector Map & contact submissions */}
-                <Contact />
-
-                {/* Delivery Areas */}
-                <div className="max-w-7xl mx-auto px-6 md:px-12 mt-12 mb-8">
-                  <DeliveryCoverage />
-                </div>
-              </main>
-
-              {/* Clean Glassmorphic Footer */}
-              <Footer onNavigate={navigate} />
-            </>
-          ) : null}
-          <ExpandableFAB />
-          <PWAInstallPrompt />
-          <MobileNav 
-            activeSection={activeSection} 
-            onNavigate={(href) => {
-              const element = document.querySelector(href);
-              if (element) {
-                const offset = 80;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - offset;
-                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-              }
-            }} 
-          />
-          
-          {currentPath !== "/" && currentPath !== "" && currentPath !== "/privacy-policy" && currentPath !== "/terms-and-conditions" && currentPath !== "/copyright" && (
-            <NotFound />
-          )}
-
-          <EnquiryModal
-            isOpen={isEnquiryOpen}
-            onClose={() => setIsEnquiryOpen(false)}
-            productName={enquiryProduct}
-          />
-        </motion.div>
-      )}
-    </div>
+            <CartDrawer onCheckout={() => setIsCheckoutOpen(true)} />
+            <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
+          </motion.div>
+      </div>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

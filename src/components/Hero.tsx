@@ -10,7 +10,7 @@ export default function Hero({ onStartOrdering }: HeroProps) {
   return (
     <section
       id="home"
-      className="relative min-h-screen pt-28 pb-16 flex items-center justify-center overflow-hidden bg-brand-light"
+      className="relative min-h-screen pt-28 pb-16 flex items-center justify-center overflow-hidden bg-background"
     >
       {/* Dynamic Ambient Blur Waves (Sleek Apple/Stripe-inspired Background Blobs) */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] aspect-square rounded-full bg-gradient-to-tr from-brand-primary/20 to-brand-cyan/20 blur-[120px] mix-blend-multiply animate-pulse" style={{ animationDuration: "12s" }} />
@@ -32,19 +32,35 @@ export default function Hero({ onStartOrdering }: HeroProps) {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border-white/80 self-start mb-6 shadow-sm"
           >
             <span className="flex h-2 w-2 rounded-full bg-brand-cyan animate-ping" />
-            <span className="text-xs font-mono tracking-widest uppercase font-semibold text-brand-primary flex items-center gap-1.5">
-              <span className="material-symbols-rounded text-sm font-fill text-brand-cyan">temp_preferences_custom</span>
-              <span>100% Hyperlocal Local Delivery Service</span>
+            <span className="text-xs font-mono tracking-widest uppercase font-semibold text-primary flex items-center gap-1.5">
+              <span className="material-symbols-rounded text-sm font-fill text-brand-cyan">location_on</span>
+              <span>Serving Nischintapur (Within 10 KM)</span>
             </span>
           </motion.div>
 
+          {/* Premium Information Strip */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.05 }}
-            className="mb-6 self-start"
+            className="mb-6 self-start flex flex-col sm:flex-row flex-wrap gap-3 items-start sm:items-center"
           >
             <BusinessStatus />
+            
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface/60 border border-white/80 shadow-sm backdrop-blur-md">
+              <span className="material-symbols-rounded text-sm font-fill text-primary">local_shipping</span>
+              <span className="text-xs font-bold text-on-surface-variant">Delivery in ~30 mins</span>
+            </div>
+
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface/60 border border-white/80 shadow-sm backdrop-blur-md">
+              <span className="material-symbols-rounded text-sm font-fill text-emerald-500">payments</span>
+              <span className="text-xs font-bold text-on-surface-variant">₹25 Delivery Fee</span>
+            </div>
+            
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface/60 border border-white/80 shadow-sm backdrop-blur-md">
+              <span className="material-symbols-rounded text-sm font-fill text-amber-500">schedule</span>
+              <span className="text-xs font-bold text-on-surface-variant">Open Daily • 8 AM - 8 PM</span>
+            </div>
           </motion.div>
 
           {/* Premium H1 Typography pairing */}
@@ -52,7 +68,7 @@ export default function Hero({ onStartOrdering }: HeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[1.08] text-brand-dark tracking-tight"
+            className="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[1.08] text-on-surface tracking-tight"
           >
             Everything <br className="hidden md:inline" />
             Delivered.{" "}
@@ -65,7 +81,7 @@ export default function Hero({ onStartOrdering }: HeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-6 text-lg md:text-xl text-brand-dark/70 leading-relaxed font-normal max-w-xl"
+            className="mt-6 text-lg md:text-xl text-on-surface-variant leading-relaxed font-normal max-w-xl"
           >
             Sizzling rolls, piping hot momos, crisp grocery greens, stationery and daily needs. Carefully handpicked from neighborhood partner shops and delivered at your doorstep in Salt Lake in under 30 minutes.
           </motion.p>
@@ -81,7 +97,7 @@ export default function Hero({ onStartOrdering }: HeroProps) {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={onStartOrdering}
-              className="px-8 py-4 rounded-[20px] bg-gradient-to-r from-brand-primary via-brand-gradient-mid to-brand-cyan text-white font-bold text-sm uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center gap-2 group cursor-pointer select-none"
+              className="px-8 py-4 rounded-[20px] bg-gradient-to-r from-brand-primary via-brand-gradient-mid to-brand-cyan text-on-primary font-bold text-sm uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center gap-2 group cursor-pointer select-none"
             >
               <span>Explore Catalog</span>
               <span className="material-symbols-rounded text-base font-bold group-hover:translate-x-1 transition-transform">keyboard_arrow_right</span>
@@ -91,9 +107,9 @@ export default function Hero({ onStartOrdering }: HeroProps) {
               whileHover={{ scale: 1.03, backgroundColor: "rgba(255,255,255,0.95)" }}
               whileTap={{ scale: 0.97 }}
               onClick={handleCallNowClick}
-              className="px-8 py-4 rounded-[20px] bg-white border border-brand-dark/10 text-brand-dark font-bold text-sm uppercase tracking-wider shadow-sm transition-all flex items-center gap-2 cursor-pointer select-none"
+              className="px-8 py-4 rounded-[20px] bg-surface border border-outline text-on-surface font-bold text-sm uppercase tracking-wider shadow-sm transition-all flex items-center gap-2 cursor-pointer select-none"
             >
-              <span className="material-symbols-rounded text-base font-fill text-brand-primary animate-pulse">phone</span>
+              <span className="material-symbols-rounded text-base font-fill text-primary animate-pulse">phone</span>
               <span>Call Now</span>
             </motion.button>
           </motion.div>
@@ -103,19 +119,19 @@ export default function Hero({ onStartOrdering }: HeroProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="mt-14 grid grid-cols-3 gap-4 border-t border-brand-dark/5 pt-8"
+            className="mt-14 grid grid-cols-3 gap-4 border-t border-outline pt-8"
           >
             <div className="flex flex-col">
-              <span className="font-display font-extrabold text-3xl md:text-4xl text-brand-primary tracking-tight">30m</span>
-              <span className="text-[11px] font-mono tracking-widest text-brand-dark/50 uppercase mt-1 font-semibold">Avg. Speed</span>
+              <span className="font-display font-extrabold text-3xl md:text-4xl text-primary tracking-tight">30m</span>
+              <span className="text-[11px] font-mono tracking-widest text-on-surface-variant uppercase mt-1 font-semibold">Avg. Speed</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-display font-extrabold text-3xl md:text-4xl text-brand-primary tracking-tight">100%</span>
-              <span className="text-[11px] font-mono tracking-widest text-brand-dark/50 uppercase mt-1 font-semibold">Fresh Checked</span>
+              <span className="font-display font-extrabold text-3xl md:text-4xl text-primary tracking-tight">100%</span>
+              <span className="text-[11px] font-mono tracking-widest text-on-surface-variant uppercase mt-1 font-semibold">Fresh Checked</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-display font-extrabold text-3xl md:text-4xl text-brand-primary tracking-tight">140k+</span>
-              <span className="text-[11px] font-mono tracking-widest text-brand-dark/50 uppercase mt-1 font-semibold">Delivered</span>
+              <span className="font-display font-extrabold text-3xl md:text-4xl text-primary tracking-tight">140k+</span>
+              <span className="text-[11px] font-mono tracking-widest text-on-surface-variant uppercase mt-1 font-semibold">Delivered</span>
             </div>
           </motion.div>
         </div>
@@ -130,13 +146,13 @@ export default function Hero({ onStartOrdering }: HeroProps) {
             className="relative w-full max-w-[420px] aspect-[4/5] rounded-[32px] glass p-6 border-white/60 shadow-2xl flex flex-col justify-between"
           >
             {/* Screen Header */}
-            <div className="flex items-center justify-between border-b border-brand-dark/5 pb-4">
+            <div className="flex items-center justify-between border-b border-outline pb-4">
               <div className="flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-red-400" />
                 <div className="w-3 h-3 rounded-full bg-yellow-400" />
                 <div className="w-3 h-3 rounded-full bg-green-400" />
               </div>
-              <div className="px-3 py-1 rounded-full bg-brand-primary/10 text-[10px] font-mono font-bold uppercase tracking-wider text-brand-primary flex items-center gap-1">
+              <div className="px-3 py-1 rounded-full bg-primary/10 text-[10px] font-mono font-bold uppercase tracking-wider text-primary flex items-center gap-1">
                 <span className="material-symbols-rounded text-xs text-brand-cyan animate-pulse">location_on</span>
                 <span>Hyperlocal Core active</span>
               </div>
@@ -153,33 +169,33 @@ export default function Hero({ onStartOrdering }: HeroProps) {
                 <span className="absolute inset-3 rounded-full border border-brand-primary/20 animate-ping" style={{ animationDuration: "4s" }} />
                 
                 {/* Center Delivery Shield Vector Icon */}
-                <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-brand-primary to-brand-gradient-end flex items-center justify-center shadow-lg text-white">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-brand-primary to-brand-gradient-end flex items-center justify-center shadow-lg text-on-primary">
                   <span className="material-symbols-rounded text-5xl font-fill">local_shipping</span>
                 </div>
               </div>
 
-              <h3 className="font-display font-bold text-xl text-brand-dark">QuickDrop Delivery</h3>
-              <p className="text-xs font-mono text-brand-dark/50 tracking-wider uppercase mt-1">Ready for checkout</p>
+              <h3 className="font-display font-bold text-xl text-on-surface">QuickDrop Delivery</h3>
+              <p className="text-xs font-mono text-on-surface-variant tracking-wider uppercase mt-1">Ready for checkout</p>
 
               {/* Status capsule */}
-              <div className="mt-4 px-4 py-2 rounded-full bg-white/75 border border-white shadow-sm flex items-center gap-2">
+              <div className="mt-4 px-4 py-2 rounded-full bg-surface/75 border border-white shadow-sm flex items-center gap-2">
                 <span className="material-symbols-rounded text-yellow-400 text-base font-fill animate-spin" style={{ animationDuration: "12s" }}>star</span>
-                <span className="text-xs font-semibold text-brand-dark/80">30 Min Guaranteed Delivery</span>
+                <span className="text-xs font-semibold text-on-surface-variant">30 Min Guaranteed Delivery</span>
               </div>
             </div>
 
             {/* Glass footer of the card */}
-            <div className="bg-white/40 border border-white/60 rounded-2xl p-4 flex items-center justify-between shadow-sm">
+            <div className="bg-surface/40 border border-white/60 rounded-2xl p-4 flex items-center justify-between shadow-sm">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-brand-cyan/10 flex items-center justify-center text-brand-primary">
+                <div className="w-10 h-10 rounded-xl bg-brand-cyan/10 flex items-center justify-center text-primary">
                   <span className="material-symbols-rounded text-xl">schedule</span>
                 </div>
                 <div className="text-left">
-                  <p className="text-xs font-bold text-brand-dark">30 Mins Average</p>
-                  <p className="text-[10px] text-brand-dark/50">Near-zero delay dispatched</p>
+                  <p className="text-xs font-bold text-on-surface">30 Mins Average</p>
+                  <p className="text-[10px] text-on-surface-variant">Near-zero delay dispatched</p>
                 </div>
               </div>
-              <span className="text-xs font-mono font-extrabold text-brand-primary uppercase bg-white/90 px-2.5 py-1 rounded-lg">LIVE</span>
+              <span className="text-xs font-mono font-extrabold text-primary uppercase bg-surface/90 px-2.5 py-1 rounded-lg">LIVE</span>
             </div>
           </motion.div>
 
@@ -189,12 +205,12 @@ export default function Hero({ onStartOrdering }: HeroProps) {
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
             className="absolute -top-6 -left-4 md:-left-12 glass border-white p-4 rounded-2xl shadow-xl flex items-center gap-3 max-w-[190px] select-none pointer-events-none"
           >
-            <div className="w-10 h-10 rounded-full bg-brand-cyan/10 flex items-center justify-center text-brand-primary">
-              <span className="material-symbols-rounded text-lg text-brand-primary">bolt</span>
+            <div className="w-10 h-10 rounded-full bg-brand-cyan/10 flex items-center justify-center text-primary">
+              <span className="material-symbols-rounded text-lg text-primary">bolt</span>
             </div>
             <div className="text-left">
-              <p className="text-xs font-bold text-brand-dark">30 Mins Avg</p>
-              <p className="text-[10px] text-brand-dark/50">Rapid Logistics</p>
+              <p className="text-xs font-bold text-on-surface">30 Mins Avg</p>
+              <p className="text-[10px] text-on-surface-variant">Rapid Logistics</p>
             </div>
           </motion.div>
 
@@ -208,8 +224,8 @@ export default function Hero({ onStartOrdering }: HeroProps) {
               <span className="material-symbols-rounded text-lg text-emerald-600 font-fill">eco</span>
             </div>
             <div className="text-left">
-              <p className="text-xs font-bold text-brand-dark">Fresh Daily</p>
-              <p className="text-[10px] text-brand-dark/50">Carefully Handpicked</p>
+              <p className="text-xs font-bold text-on-surface">Fresh Daily</p>
+              <p className="text-[10px] text-on-surface-variant">Carefully Handpicked</p>
             </div>
           </motion.div>
 
@@ -223,8 +239,8 @@ export default function Hero({ onStartOrdering }: HeroProps) {
               <span className="material-symbols-rounded text-base text-rose-500 font-fill">favorite</span>
             </div>
             <div className="text-left">
-              <p className="text-xs font-bold text-brand-dark">Trusted Service</p>
-              <p className="text-[10px] text-brand-dark/50">Rated 4.9/5 stars</p>
+              <p className="text-xs font-bold text-on-surface">Trusted Service</p>
+              <p className="text-[10px] text-on-surface-variant">Rated 4.9/5 stars</p>
             </div>
           </motion.div>
 

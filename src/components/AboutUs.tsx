@@ -6,10 +6,10 @@ export default function AboutUs() {
   return (
     <section
       id="about"
-      className="py-24 px-6 md:px-12 relative overflow-hidden bg-white/40"
+      className="py-24 px-6 md:px-12 relative overflow-hidden bg-surface/40"
     >
       {/* Visual glowing blobs */}
-      <div className="absolute top-[30%] right-[-10%] w-[350px] aspect-square rounded-full bg-brand-primary/5 blur-[100px]" />
+      <div className="absolute top-[30%] right-[-10%] w-[350px] aspect-square rounded-full bg-primary/5 blur-[100px]" />
       <div className="absolute bottom-[20%] left-[-10%] w-[400px] aspect-square rounded-full bg-brand-cyan/5 blur-[110px]" />
 
       <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -21,7 +21,7 @@ export default function AboutUs() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="px-3.5 py-1 rounded-full bg-brand-primary/10 text-[11px] font-mono tracking-widest font-bold uppercase text-brand-primary inline-flex items-center gap-1.5 mb-4 self-start"
+            className="px-3.5 py-1 rounded-full bg-primary/10 text-[11px] font-mono tracking-widest font-bold uppercase text-primary inline-flex items-center gap-1.5 mb-4 self-start"
           >
             <span>Our Journey</span>
           </motion.div>
@@ -31,24 +31,26 @@ export default function AboutUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-display font-extrabold text-4xl md:text-5xl text-brand-dark tracking-tight leading-[1.12]"
+            className="font-display font-extrabold text-4xl md:text-5xl text-on-surface tracking-tight leading-[1.12]"
           >
-            Revolutionizing Hyperlocal Logistics For Every Neighborhood
+            Serving Nischintapur with Pride & Passion
           </motion.h2>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-6 text-base md:text-lg text-brand-dark/70 leading-relaxed font-normal"
+            className="mt-6 text-base md:text-lg text-on-surface-variant leading-relaxed font-normal space-y-4"
           >
-            Born in 2026, QuickDrop was started with a simple belief: you shouldn't have to wait hours or pay excessive premiums to access items from local vendors next door. By combining modern routing software with carefully insulated dispatch cargo, we bridge the gap between premium neighborhood stores and local residents.
-          </motion.p>
+            <p>QuickDrop was created with one simple goal—to make everyday grocery shopping faster, easier, and more convenient for families in Nischintapur. We proudly serve our local community with fresh products, reliable delivery, and a commitment to excellent customer service.</p>
+            <p>As a locally focused grocery delivery platform, every order is handled with care to ensure quality, convenience, and trust.</p>
+            <p>Today we proudly serve customers within a 10 KM radius of Nischintapur, and we're continuously working to expand our reach so we can serve even more nearby communities in the future.</p>
+          </motion.div>
 
-          <hr className="border-brand-dark/5 my-8" />
+          <hr className="border-outline my-8" />
 
-          {/* Mission & Vision split blocks */}
+          {/* Highlights split blocks */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -57,15 +59,15 @@ export default function AboutUs() {
               transition={{ delay: 0.3 }}
               className="flex gap-4 items-start"
             >
-              <div className="w-10 h-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div>
-                <h4 className="font-display font-bold text-lg text-brand-dark">Our Mission</h4>
-                <p className="mt-2 text-sm text-brand-dark/70 leading-relaxed">
-                  Empowering local corner shops, food chefs, and grocery stores with modern digital sales and ultra-fast logistics capabilities.
+                <h4 className="font-display font-bold text-lg text-on-surface">Locally Trusted</h4>
+                <p className="mt-2 text-sm text-on-surface-variant leading-relaxed">
+                  Serving Nischintapur & Nearby Areas
                 </p>
               </div>
             </motion.div>
@@ -77,35 +79,37 @@ export default function AboutUs() {
               transition={{ delay: 0.4 }}
               className="flex gap-4 items-start"
             >
-              <div className="w-10 h-10 rounded-xl bg-brand-cyan/10 text-brand-primary flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-brand-cyan/10 text-primary flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div>
-                <h4 className="font-display font-bold text-lg text-brand-dark">Our Vision</h4>
-                <p className="mt-2 text-sm text-brand-dark/70 leading-relaxed">
-                  Building a fully frictionless hyperlocal shipping mesh that ensures any household item can be obtained in minutes, sustainably.
+                <h4 className="font-display font-bold text-lg text-on-surface">Fast Delivery</h4>
+                <p className="mt-2 text-sm text-on-surface-variant leading-relaxed">
+                  Average Delivery Time: 30 Minutes
                 </p>
               </div>
             </motion.div>
           </div>
 
-          {/* Customer First approach */}
+          {/* Growing Every Day approach */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
-            className="mt-8 p-4 rounded-2xl bg-brand-cyan/5 border border-brand-cyan/10 flex items-center gap-3"
+            className="mt-8 p-4 rounded-2xl bg-brand-cyan/5 border border-brand-cyan/10 flex items-center gap-3 relative overflow-hidden"
           >
-            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-cyan shadow-sm font-bold text-xs select-none">
-              CF
+            <div className="absolute top-0 right-0 px-2 py-0.5 bg-primary text-on-primary text-[8px] font-bold uppercase tracking-widest rounded-bl-lg rounded-tr-xl">
+              🚀 Expanding Soon
+            </div>
+            <div className="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-brand-cyan shadow-sm font-bold text-xs select-none">
+              GE
             </div>
             <div className="text-left">
-              <p className="text-sm font-bold text-brand-dark">Customer-First Logistics</p>
-              <p className="text-xs text-brand-dark/70">Each delivery is individually packaged, temperature locked, and handled with care.</p>
+              <p className="text-sm font-bold text-on-surface">Growing Every Day</p>
+              <p className="text-xs text-on-surface-variant">Expanding our delivery network to reach more customers soon.</p>
             </div>
           </motion.div>
         </div>
@@ -114,7 +118,7 @@ export default function AboutUs() {
         <div className="lg:col-span-5 grid grid-cols-2 gap-4 md:gap-6 relative">
           
           {/* Subtle background frame decorative border */}
-          <div className="absolute inset-[-12px] border border-brand-dark/5 rounded-[36px] pointer-events-none" />
+          <div className="absolute inset-[-12px] border border-outline rounded-[36px] pointer-events-none" />
 
           {statsData.map((stat, idx) => {
             return (
@@ -130,15 +134,15 @@ export default function AboutUs() {
                 }`}
               >
                 {/* Glowing vector wrapper icon */}
-                <div className="w-10 h-10 rounded-xl bg-brand-primary/5 text-brand-primary flex items-center justify-center mb-6">
+                <div className="w-10 h-10 rounded-xl bg-primary/5 text-primary flex items-center justify-center mb-6">
                   <LucideIcon name={stat.iconName} size={18} />
                 </div>
 
                 <div className="flex flex-col">
-                  <span className="font-display font-extrabold text-3xl md:text-4xl text-brand-primary tracking-tight">
+                  <span className="font-display font-extrabold text-3xl md:text-4xl text-primary tracking-tight">
                     {stat.value}
                   </span>
-                  <span className="text-[10px] font-mono tracking-wider text-brand-dark/50 uppercase mt-1.5 font-bold">
+                  <span className="text-[10px] font-mono tracking-wider text-on-surface-variant uppercase mt-1.5 font-bold">
                     {stat.label}
                   </span>
                 </div>

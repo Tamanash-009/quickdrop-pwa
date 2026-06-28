@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { Home, Grid, Search, PhoneCall } from "lucide-react";
 import { handleCallNowClick } from "../utils";
 import { trackEvent, trackCallClick } from "../utils/analytics";
+
+import { ShoppingBag } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 interface MobileNavProps {
   activeSection: string;
@@ -11,30 +14,38 @@ interface MobileNavProps {
 
 export default function MobileNav({ activeSection, onNavigate }: MobileNavProps) {
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollY = useRef(0);
+  const { itemCount, setIsCartOpen } = useCart();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Hide if scrolling down, show if scrolling up
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          // Hide if scrolling down, show if scrolling up
+          if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+            setIsVisible(false);
+          } else {
+            setIsVisible(true);
+          }
+          
+          lastScrollY.current = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
       }
-      
-      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   const navItems = [
     { id: "home", label: "Home", icon: Home, href: "#home" },
     { id: "services", label: "Services", icon: Grid, href: "#services" },
-    { id: "search", label: "Catalog", icon: Search, href: "#featured" },
+    { id: "cart", label: "Cart", icon: ShoppingBag, action: () => setIsCartOpen(true) },
     { id: "call", label: "Call", icon: PhoneCall, action: handleCallNowClick },
   ];
 
@@ -46,7 +57,7 @@ export default function MobileNav({ activeSection, onNavigate }: MobileNavProps)
       className="fixed bottom-0 left-0 right-0 z-[60] md:hidden"
     >
       <div className="mx-4 mb-4">
-        <div className="glass-card bg-white/80 border border-white/60 p-2 rounded-2xl shadow-xl flex items-center justify-around">
+        <div className="glass-card bg-background/90 border border-white/20 p-2 rounded-2xl shadow-xl flex items-center justify-around">
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
             const Icon = item.icon;
@@ -65,14 +76,14 @@ export default function MobileNav({ activeSection, onNavigate }: MobileNavProps)
                 }}
                 className={`relative flex flex-col items-center justify-center p-2 rounded-xl min-w-[64px] transition-all ${
                   isActive 
-                    ? "text-brand-primary" 
-                    : "text-brand-dark/50 hover:text-brand-dark hover:bg-brand-dark/5"
+                    ? "text-primary" 
+                    : "text-on-surface-variant hover:text-on-surface hover:bg-on-surface/5"
                 }`}
               >
                 {isActive && (
                   <motion.div 
                     layoutId="mobileNavActive"
-                    className="absolute inset-0 bg-brand-primary/10 rounded-xl"
+                    className="absolute inset-0 bg-primary/10 rounded-xl"
                     transition={{ type: "spring", stiffness: 300, damping: 25 }}
                   />
                 )}

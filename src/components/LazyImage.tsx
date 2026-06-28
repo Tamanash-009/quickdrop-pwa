@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useId } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ImageOff, Sparkles } from "lucide-react";
-import Skeleton from "./Skeleton";
+import { Skeleton } from "./Skeleton";
 
 interface LazyImageProps {
   src: string;
@@ -104,7 +104,7 @@ export default function LazyImage({
     <div
       id={`lazy-image-container-${id}`}
       ref={containerRef as React.RefObject<HTMLDivElement>}
-      className={`relative w-full h-full overflow-hidden select-none bg-slate-100 flex items-center justify-center ${containerClassName}`}
+      className={`relative w-full h-full overflow-hidden select-none bg-surface-variant flex items-center justify-center ${containerClassName}`}
       onClick={onClick}
     >
       {/* Skeleton Shimmer or Placeholder when not loaded */}
@@ -114,15 +114,15 @@ export default function LazyImage({
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute inset-0 flex items-center justify-center bg-slate-100"
+            className="absolute inset-0 flex items-center justify-center bg-surface-variant"
           >
             <Skeleton className="absolute inset-0 w-full h-full" />
             <motion.div
               animate={{ opacity: [0.4, 0.7, 0.4] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
-              className="flex flex-col items-center gap-1 text-slate-400"
+              className="flex flex-col items-center gap-1 text-on-surface-variant"
             >
-              <Sparkles size={16} className="animate-pulse text-brand-primary" />
+              <Sparkles size={16} className="animate-pulse text-primary" />
               <span className="text-[9px] font-mono font-bold tracking-widest uppercase">QuickDrop</span>
             </motion.div>
           </motion.div>
@@ -153,7 +153,7 @@ export default function LazyImage({
 
       {/* Fallback indicator overlay inside image card if image errored out */}
       {isError && (
-        <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-white px-2 py-0.5 rounded text-[8px] font-mono flex items-center gap-1 pointer-events-none z-10">
+        <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-on-primary px-2 py-0.5 rounded text-[8px] font-mono flex items-center gap-1 pointer-events-none z-10">
           <ImageOff size={8} />
           <span>Optimized</span>
         </div>

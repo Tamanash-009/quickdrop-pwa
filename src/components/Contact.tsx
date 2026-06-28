@@ -232,10 +232,10 @@ Thank you.`;
   return (
     <section
       id="contact"
-      className="py-24 px-6 md:px-12 relative overflow-hidden bg-brand-light"
+      className="py-24 px-6 md:px-12 relative overflow-hidden bg-background"
     >
       {/* Decorative ambient background drops */}
-      <div className="absolute top-[20%] left-[-10%] w-[450px] aspect-square rounded-full bg-brand-primary/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[20%] left-[-10%] w-[450px] aspect-square rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[20%] right-[-10%] w-[350px] aspect-square rounded-full bg-brand-cyan/10 blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -246,14 +246,14 @@ Thank you.`;
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="px-3.5 py-1 rounded-full bg-brand-primary/10 text-[11px] font-mono tracking-widest font-bold uppercase text-brand-primary inline-flex items-center gap-1.5 mb-4"
+            className="px-3.5 py-1 rounded-full bg-primary/10 text-[11px] font-mono tracking-widest font-bold uppercase text-primary inline-flex items-center gap-1.5 mb-4"
           >
             <span>Get In Touch</span>
           </motion.div>
-          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-brand-dark tracking-tight">
+          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-on-surface tracking-tight">
             Connect With QuickDrop
           </h2>
-          <p className="mt-4 text-sm md:text-base text-brand-dark/70 leading-relaxed">
+          <p className="mt-4 text-sm md:text-base text-on-surface-variant leading-relaxed">
             Have questions about franchising, vendor partnerships, or feedback? Send us a message or dial directly.
           </p>
         </div>
@@ -272,29 +272,29 @@ Thank you.`;
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.5 }}
               whileHover={{ y: -5, scale: 1.02 }}
-              className={`p-6 rounded-3xl glass-card border border-white/60 bg-white/30 backdrop-blur-md shadow-sm transition-all duration-300 flex flex-col justify-between text-left ${chan.hoverBg}`}
+              className={`p-6 rounded-3xl glass-card border border-white/60 bg-surface/30 backdrop-blur-md shadow-sm transition-all duration-300 flex flex-col justify-between text-left ${chan.hoverBg}`}
               style={{
                 boxShadow: "0 4px 30px rgba(0, 0, 0, 0.03)",
               }}
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-3 rounded-2xl bg-white/80 shadow-inner flex items-center justify-center">
+                  <div className="p-3 rounded-2xl bg-surface/80 shadow-inner flex items-center justify-center">
                     {chan.icon}
                   </div>
-                  <span className="text-[10px] font-mono font-bold tracking-wider uppercase text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-full">
+                  <span className="text-[10px] font-mono font-bold tracking-wider uppercase text-primary bg-primary/10 px-2.5 py-1 rounded-full">
                     Official
                   </span>
                 </div>
-                <h3 className="font-display font-black text-sm text-brand-dark tracking-tight mb-2">
+                <h3 className="font-display font-black text-sm text-on-surface tracking-tight mb-2">
                   {chan.label}
                 </h3>
-                <p className="text-xs text-brand-dark/70 leading-relaxed mb-6">
+                <p className="text-xs text-on-surface-variant leading-relaxed mb-6">
                   {chan.desc}
                 </p>
               </div>
               
-              <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-brand-primary group">
+              <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-primary group">
                 <span>{chan.action}</span>
                 <span className="material-symbols-rounded text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
               </div>
@@ -304,10 +304,10 @@ Thank you.`;
 
         {/* Mobile Optimized Horizontal Row with Large Touch Targets (Minimum 48x48dp) */}
         <div className="flex md:hidden flex-col items-center gap-3.5 mb-14 relative z-10">
-          <span className="text-xs font-mono font-bold tracking-widest text-brand-dark/50 uppercase text-center px-4">
+          <span className="text-xs font-mono font-bold tracking-widest text-on-surface-variant uppercase text-center px-4">
             Connect via our official networks
           </span>
-          <div className="flex items-center justify-center gap-6 p-4 bg-white/40 backdrop-blur-md rounded-2xl border border-white/60 shadow-sm w-full max-w-xs mx-auto">
+          <div className="flex items-center justify-center gap-6 p-4 bg-surface/40 backdrop-blur-md rounded-2xl border border-white/60 shadow-sm w-full max-w-xs mx-auto">
             {socialChannels.map((chan) => (
               <motion.a
                 key={chan.name}
@@ -316,7 +316,7 @@ Thank you.`;
                 rel="noreferrer"
                 onClick={() => trackSocialClick(chan.name)}
                 whileTap={{ scale: 0.9 }}
-                className="w-12 h-12 rounded-full bg-white/95 shadow-sm border border-brand-dark/10 flex items-center justify-center transition-all hover:scale-105"
+                className="w-12 h-12 rounded-full bg-surface/95 shadow-sm border border-outline flex items-center justify-center transition-all hover:scale-105"
                 aria-label={chan.name}
                 style={{
                   minWidth: "48px",
@@ -339,14 +339,14 @@ Thank you.`;
               {/* Phone card */}
               <motion.div
                 whileHover={{ scale: 1.01 }}
-                className="p-5 rounded-2xl bg-white border border-brand-dark/10 flex items-center gap-4 shadow-sm"
+                className="p-5 rounded-2xl bg-surface border border-outline flex items-center gap-4 shadow-sm"
               >
-                <div className="w-12 h-12 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
                   <Phone size={20} />
                 </div>
                 <div>
-                  <h4 className="font-display font-bold text-xs text-brand-dark/50 uppercase tracking-widest">Phone Support</h4>
-                  <a href={`tel:${businessConfig.contact.phone}`} onClick={() => trackEvent("contact_phone_click", "engagement", "Phone Click")} className="text-base font-extrabold text-brand-dark hover:text-brand-primary transition-colors mt-0.5 block">
+                  <h4 className="font-display font-bold text-xs text-on-surface-variant uppercase tracking-widest">Phone Support</h4>
+                  <a href={`tel:${businessConfig.contact.phone}`} onClick={() => trackEvent("contact_phone_click", "engagement", "Phone Click")} className="text-base font-extrabold text-on-surface hover:text-primary transition-colors mt-0.5 block">
                     {businessConfig.contact.phone}
                   </a>
                 </div>
@@ -355,14 +355,14 @@ Thank you.`;
               {/* WhatsApp card */}
               <motion.div
                 whileHover={{ scale: 1.01 }}
-                className="p-5 rounded-2xl bg-white border border-brand-dark/10 flex items-center gap-4 shadow-sm"
+                className="p-5 rounded-2xl bg-surface border border-outline flex items-center gap-4 shadow-sm"
               >
                 <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
                   <MessageSquare size={20} />
                 </div>
                 <div>
-                  <h4 className="font-display font-bold text-xs text-brand-dark/50 uppercase tracking-widest">WhatsApp Dispatch</h4>
-                  <a href={`https://wa.me/${businessConfig.contact.whatsapp}`} onClick={() => trackEvent("contact_whatsapp_click", "engagement", "WhatsApp Click")} target="_blank" rel="noreferrer" className="text-base font-extrabold text-brand-dark hover:text-brand-primary transition-colors mt-0.5 block">
+                  <h4 className="font-display font-bold text-xs text-on-surface-variant uppercase tracking-widest">WhatsApp Dispatch</h4>
+                  <a href={`https://wa.me/${businessConfig.contact.whatsapp}`} onClick={() => trackEvent("contact_whatsapp_click", "engagement", "WhatsApp Click")} target="_blank" rel="noreferrer" className="text-base font-extrabold text-on-surface hover:text-primary transition-colors mt-0.5 block">
                     {businessConfig.contact.whatsapp}
                   </a>
                 </div>
@@ -371,15 +371,31 @@ Thank you.`;
               {/* Email card */}
               <motion.div
                 whileHover={{ scale: 1.01 }}
-                className="p-5 rounded-2xl bg-white border border-brand-dark/10 flex items-center gap-4 shadow-sm"
+                className="p-5 rounded-2xl bg-surface border border-outline flex items-center gap-4 shadow-sm"
               >
                 <div className="w-12 h-12 rounded-xl bg-brand-cyan/10 text-brand-cyan flex items-center justify-center shrink-0">
                   <Mail size={20} className="text-brand-cyan" />
                 </div>
                 <div>
-                  <h4 className="font-display font-bold text-xs text-brand-dark/50 uppercase tracking-widest">Email Relations</h4>
-                  <a href={`mailto:${businessConfig.contact.email}`} onClick={() => trackEvent("contact_email_click", "engagement", "Email Click")} className="text-base font-extrabold text-brand-dark hover:text-brand-primary transition-colors mt-0.5 block">
+                  <h4 className="font-display font-bold text-xs text-on-surface-variant uppercase tracking-widest">Email Relations</h4>
+                  <a href={`mailto:${businessConfig.contact.email}`} onClick={() => trackEvent("contact_email_click", "engagement", "Email Click")} className="text-base font-extrabold text-on-surface hover:text-primary transition-colors mt-0.5 block">
                     {businessConfig.contact.email}
+                  </a>
+                </div>
+              </motion.div>
+
+              {/* HQ Address Card */}
+              <motion.div
+                whileHover={{ scale: 1.01 }}
+                className="p-5 rounded-2xl bg-surface border border-outline flex items-center gap-4 shadow-sm"
+              >
+                <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center shrink-0">
+                  <MapPin size={20} className="text-amber-600" />
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-xs text-on-surface-variant uppercase tracking-widest">Headquarters</h4>
+                  <a href={businessConfig.contact.googleMapsUrl} target="_blank" rel="noreferrer" className="text-sm font-extrabold text-on-surface hover:text-primary transition-colors mt-0.5 block">
+                    {businessConfig.contact.address.street}, {businessConfig.contact.address.po}, {businessConfig.contact.address.district}
                   </a>
                 </div>
               </motion.div>
@@ -387,7 +403,7 @@ Thank you.`;
               {/* Support Schedule card */}
               <motion.div
                 whileHover={{ scale: 1.01 }}
-                className="p-5 rounded-2xl bg-white border border-brand-dark/10 flex items-center gap-4 shadow-sm"
+                className="p-5 rounded-2xl bg-surface border border-outline flex items-center gap-4 shadow-sm"
               >
                 <div className="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0">
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -396,17 +412,50 @@ Thank you.`;
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-display font-bold text-xs text-brand-dark/50 uppercase tracking-widest">Support Availability</h4>
-                  <p className="text-sm font-extrabold text-brand-dark mt-0.5">
-                    Monday – Sunday, 8:00 AM – 10:00 PM
+                  <h4 className="font-display font-bold text-xs text-on-surface-variant uppercase tracking-widest">Business Hours</h4>
+                  <p className="text-sm font-extrabold text-on-surface mt-0.5">
+                    {businessConfig.hours.days}, {businessConfig.hours.openTime} – {businessConfig.hours.closeTime}
                   </p>
+                </div>
+              </motion.div>
+
+              {/* Delivery Info Card */}
+              <motion.div
+                whileHover={{ scale: 1.01 }}
+                className="p-5 rounded-2xl bg-gradient-to-br from-white to-brand-primary/5 border border-outline flex flex-col gap-3 shadow-sm"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-rounded text-lg text-primary">local_shipping</span>
+                  <h4 className="font-display font-bold text-xs text-on-surface-variant uppercase tracking-widest">Delivery Coverage</h4>
+                </div>
+                <div className="grid grid-cols-2 gap-y-2 gap-x-4">
+                   <div className="flex flex-col">
+                     <span className="text-[10px] text-on-surface-variant uppercase font-bold">Currently Serving</span>
+                     <span className="text-sm font-extrabold text-on-surface">Nischintapur</span>
+                   </div>
+                   <div className="flex flex-col">
+                     <span className="text-[10px] text-on-surface-variant uppercase font-bold">Coverage Area</span>
+                     <span className="text-sm font-extrabold text-on-surface">Within {businessConfig.delivery.radiusKm} KM Radius</span>
+                   </div>
+                   <div className="flex flex-col">
+                     <span className="text-[10px] text-on-surface-variant uppercase font-bold">Avg. Delivery</span>
+                     <span className="text-sm font-extrabold text-on-surface">{businessConfig.delivery.averageTimeMins} Minutes</span>
+                   </div>
+                   <div className="flex flex-col">
+                     <span className="text-[10px] text-on-surface-variant uppercase font-bold">Delivery Charge</span>
+                     <span className="text-sm font-extrabold text-on-surface">₹{businessConfig.delivery.charge}</span>
+                   </div>
+                </div>
+                <div className="mt-2 pt-2 border-t border-brand-primary/10 flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-widest font-bold text-primary">🚀 Expanding Soon</span>
+                  <span className="text-[9px] text-on-surface-variant">Stay connected for future updates.</span>
                 </div>
               </motion.div>
 
             </div>
 
             {/* Premium, Stylized Google Maps Placeholder SVG Vector */}
-            <div className="rounded-3xl border border-white/80 overflow-hidden shadow-md aspect-video relative bg-slate-100 flex items-center justify-center select-none">
+            <div className="rounded-3xl border border-white/80 overflow-hidden shadow-md aspect-video relative bg-surface-variant flex items-center justify-center select-none">
               
               {/* Custom SVG Grid & Streets drawing representing a premium map */}
               <svg className="absolute inset-0 w-full h-full opacity-60" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -421,17 +470,17 @@ Thank you.`;
               {/* Glowing Pin Vector */}
               <div className="absolute top-[110px] left-[180px] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
                 {/* Ping waves */}
-                <span className="absolute w-12 h-12 bg-brand-primary/30 rounded-full animate-ping pointer-events-none" />
-                <div className="w-10 h-10 rounded-full bg-brand-primary border-2 border-white flex items-center justify-center text-white shadow-lg relative z-10 animate-bounce">
+                <span className="absolute w-12 h-12 bg-primary/30 rounded-full animate-ping pointer-events-none" />
+                <div className="w-10 h-10 rounded-full bg-primary border-2 border-white flex items-center justify-center text-on-primary shadow-lg relative z-10 animate-bounce">
                   <MapPin size={18} />
                 </div>
-                <div className="bg-brand-dark text-white text-[9px] font-mono font-bold px-2 py-0.5 rounded-md shadow-sm uppercase tracking-widest mt-1.5 relative z-10">
+                <div className="bg-on-surface text-on-primary text-[9px] font-mono font-bold px-2 py-0.5 rounded-md shadow-sm uppercase tracking-widest mt-1.5 relative z-10">
                   QuickDrop HQ
                 </div>
               </div>
 
               {/* Watermark/Footer tag */}
-              <span className="absolute bottom-3 right-3 text-[9px] font-mono text-brand-dark/40 tracking-wider uppercase">
+              <span className="absolute bottom-3 right-3 text-[9px] font-mono text-on-surface/40 tracking-wider uppercase">
                 STYLIZED LOCAL BOUNDS • GOOGLE MAPS ACTIVE
               </span>
             </div>
@@ -446,17 +495,17 @@ Thank you.`;
               className="glass-card border-white/70 rounded-[32px] p-8 md:p-10 text-left shadow-lg h-full flex flex-col justify-between"
             >
               <div>
-                <h3 className="font-display font-extrabold text-2xl text-brand-dark flex items-center gap-1.5">
+                <h3 className="font-display font-extrabold text-2xl text-on-surface flex items-center gap-1.5">
                   <Sparkles size={20} className="text-brand-cyan" /> Send A Message
                 </h3>
-                <p className="text-sm text-brand-dark/70 mt-2 mb-8">
+                <p className="text-sm text-on-surface-variant mt-2 mb-8">
                   Fill in your details. On submit, we'll compile your message for direct WhatsApp dispatch, with a default email client fallback option.
                 </p>
 
                 <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
                   {/* Name field */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-mono font-bold uppercase text-brand-dark/60 tracking-wider">
+                    <label className="text-[10px] font-mono font-bold uppercase text-on-surface-variant tracking-wider">
                       Your Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -466,8 +515,8 @@ Thank you.`;
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="e.g. Aman Sen"
-                      className={`px-5 py-3.5 rounded-xl border bg-white/40 outline-none text-sm text-brand-dark font-medium transition-all ${
-                        errors.name ? "border-red-500 bg-red-50/10 focus:border-red-500" : "border-brand-dark/10 focus:border-brand-primary"
+                      className={`px-5 py-3.5 rounded-xl border bg-surface/40 outline-none text-sm text-on-surface font-medium transition-all ${
+                        errors.name ? "border-red-500 bg-red-50/10 focus:border-red-500" : "border-outline focus:border-brand-primary"
                       }`}
                       id="contact-name-input"
                     />
@@ -482,7 +531,7 @@ Thank you.`;
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {/* Email field */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-mono font-bold uppercase text-brand-dark/60 tracking-wider">
+                      <label className="text-[10px] font-mono font-bold uppercase text-on-surface-variant tracking-wider">
                         Email Address <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -492,8 +541,8 @@ Thank you.`;
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="e.g. aman@gmail.com"
-                        className={`px-5 py-3.5 rounded-xl border bg-white/40 outline-none text-sm text-brand-dark font-medium transition-all ${
-                          errors.email ? "border-red-500 bg-red-50/10 focus:border-red-500" : "border-brand-dark/10 focus:border-brand-primary"
+                        className={`px-5 py-3.5 rounded-xl border bg-surface/40 outline-none text-sm text-on-surface font-medium transition-all ${
+                          errors.email ? "border-red-500 bg-red-50/10 focus:border-red-500" : "border-outline focus:border-brand-primary"
                         }`}
                         id="contact-email-input"
                       />
@@ -506,7 +555,7 @@ Thank you.`;
 
                     {/* Phone field */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-mono font-bold uppercase text-brand-dark/60 tracking-wider">
+                      <label className="text-[10px] font-mono font-bold uppercase text-on-surface-variant tracking-wider">
                         Indian Phone Number <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -516,8 +565,8 @@ Thank you.`;
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="e.g. 98300 12345"
-                        className={`px-5 py-3.5 rounded-xl border bg-white/40 outline-none text-sm text-brand-dark font-medium transition-all ${
-                          errors.phone ? "border-red-500 bg-red-50/10 focus:border-red-500" : "border-brand-dark/10 focus:border-brand-primary"
+                        className={`px-5 py-3.5 rounded-xl border bg-surface/40 outline-none text-sm text-on-surface font-medium transition-all ${
+                          errors.phone ? "border-red-500 bg-red-50/10 focus:border-red-500" : "border-outline focus:border-brand-primary"
                         }`}
                         id="contact-phone-input"
                       />
@@ -531,7 +580,7 @@ Thank you.`;
 
                   {/* Subject field */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-mono font-bold uppercase text-brand-dark/60 tracking-wider">
+                    <label className="text-[10px] font-mono font-bold uppercase text-on-surface-variant tracking-wider">
                       Subject <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -541,8 +590,8 @@ Thank you.`;
                       value={formData.subject}
                       onChange={handleInputChange}
                       placeholder="e.g. Vendor onboarding request"
-                      className={`px-5 py-3.5 rounded-xl border bg-white/40 outline-none text-sm text-brand-dark font-medium transition-all ${
-                        errors.subject ? "border-red-500 bg-red-50/10 focus:border-red-500" : "border-brand-dark/10 focus:border-brand-primary"
+                      className={`px-5 py-3.5 rounded-xl border bg-surface/40 outline-none text-sm text-on-surface font-medium transition-all ${
+                        errors.subject ? "border-red-500 bg-red-50/10 focus:border-red-500" : "border-outline focus:border-brand-primary"
                       }`}
                       id="contact-subject-input"
                     />
@@ -556,10 +605,10 @@ Thank you.`;
                   {/* Message field */}
                   <div className="flex flex-col gap-1.5">
                     <div className="flex justify-between items-center">
-                      <label className="text-[10px] font-mono font-bold uppercase text-brand-dark/60 tracking-wider">
+                      <label className="text-[10px] font-mono font-bold uppercase text-on-surface-variant tracking-wider">
                         Detailed Message <span className="text-red-500">*</span>
                       </label>
-                      <span className="text-[9px] font-mono text-brand-dark/40 font-bold">
+                      <span className="text-[9px] font-mono text-on-surface/40 font-bold">
                         {formData.message.length} / 500
                       </span>
                     </div>
@@ -570,8 +619,8 @@ Thank you.`;
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Write your partnership request, vendor suggestion, or general feedback here..."
-                      className={`px-5 py-3.5 rounded-xl border bg-white/40 outline-none text-sm text-brand-dark font-medium transition-all resize-none ${
-                        errors.message ? "border-red-500 bg-red-50/10 focus:border-red-500" : "border-brand-dark/10 focus:border-brand-primary"
+                      className={`px-5 py-3.5 rounded-xl border bg-surface/40 outline-none text-sm text-on-surface font-medium transition-all resize-none ${
+                        errors.message ? "border-red-500 bg-red-50/10 focus:border-red-500" : "border-outline focus:border-brand-primary"
                       }`}
                       id="contact-message-input"
                     />
@@ -602,7 +651,7 @@ Thank you.`;
                           <button
                             type="button"
                             onClick={handleSendEmailAlternative}
-                            className="text-[10px] font-mono font-bold uppercase tracking-wider text-brand-primary bg-brand-primary/10 hover:bg-brand-primary/20 px-3 py-1.5 rounded-lg border border-brand-primary/20 transition-all cursor-pointer"
+                            className="text-[10px] font-mono font-bold uppercase tracking-wider text-primary bg-primary/10 hover:bg-primary/20 px-3 py-1.5 rounded-lg border border-brand-primary/20 transition-all cursor-pointer"
                           >
                             ✉ Send via Email Client Instead
                           </button>
@@ -617,7 +666,7 @@ Thank you.`;
                     whileTap={{ scale: 0.99 }}
                     type="submit"
                     disabled={isSubmitting}
-                    className="mt-2 w-full py-4 rounded-2xl bg-gradient-to-r from-brand-primary to-brand-gradient-end text-white text-xs font-extrabold uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer select-none"
+                    className="mt-2 w-full py-4 rounded-2xl bg-gradient-to-r from-brand-primary to-brand-gradient-end text-on-primary text-xs font-extrabold uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer select-none"
                     id="contact-submit-button"
                   >
                     {isSubmitting ? (

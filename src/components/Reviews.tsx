@@ -174,11 +174,11 @@ export default function Reviews() {
   return (
     <section
       id="reviews"
-      className="py-24 px-6 md:px-12 relative overflow-hidden bg-brand-light border-t border-brand-dark/5"
+      className="py-24 px-6 md:px-12 relative overflow-hidden bg-background border-t border-outline"
     >
       {/* Dynamic blurred background accents */}
       <div className="absolute top-[20%] left-[-10%] w-[400px] aspect-square rounded-full bg-brand-cyan/5 blur-[110px]" />
-      <div className="absolute bottom-[20%] right-[-10%] w-[350px] aspect-square rounded-full bg-brand-primary/5 blur-[90px]" />
+      <div className="absolute bottom-[20%] right-[-10%] w-[350px] aspect-square rounded-full bg-primary/5 blur-[90px]" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -197,7 +197,7 @@ export default function Reviews() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
           <div className="text-left">
             <div className="flex items-center gap-2 mb-4">
-              <span className="px-3.5 py-1 rounded-full bg-brand-primary/10 text-[11px] font-mono tracking-widest font-bold uppercase text-brand-primary inline-flex items-center gap-1.5">
+              <span className="px-3.5 py-1 rounded-full bg-primary/10 text-[11px] font-mono tracking-widest font-bold uppercase text-primary inline-flex items-center gap-1.5">
                 ⭐ Google Reviews
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-[10px] font-mono font-bold uppercase tracking-wider">
@@ -205,18 +205,18 @@ export default function Reviews() {
                 <span>Live Reviews</span>
               </span>
             </div>
-            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-brand-dark tracking-tight">
+            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-on-surface tracking-tight">
               Community Endorsements
             </h2>
-            <p className="mt-3 text-sm md:text-base text-brand-dark/70 max-w-2xl leading-relaxed">
+            <p className="mt-3 text-sm md:text-base text-on-surface-variant max-w-2xl leading-relaxed">
               We sync dynamically with Google Places API to showcase unedited, real-time reviews from local neighbors and vendor partners.
             </p>
           </div>
 
           {/* Premium Google Summary Card */}
-          <div className="p-6 rounded-2xl bg-white border border-brand-dark/10 shadow-sm flex items-center gap-4 text-left min-w-[280px]">
+          <div className="p-6 rounded-2xl bg-surface border border-outline shadow-sm flex items-center gap-4 text-left min-w-[280px]">
             {/* Google Logo representation */}
-            <div className="w-12 h-12 rounded-xl border border-brand-dark/5 bg-slate-50 flex items-center justify-center shrink-0 shadow-inner">
+            <div className="w-12 h-12 rounded-xl border border-outline bg-surface-variant flex items-center justify-center shrink-0 shadow-inner">
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -226,22 +226,22 @@ export default function Reviews() {
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-display font-black text-2xl text-brand-dark tracking-tight">{syncData.rating.toFixed(1)}</span>
-                <span className="text-xs text-brand-dark/50 font-medium">/ 5.0</span>
+                <span className="font-display font-black text-2xl text-on-surface tracking-tight">{syncData.rating.toFixed(1)}</span>
+                <span className="text-xs text-on-surface-variant font-medium">/ 5.0</span>
               </div>
               <div className="flex text-amber-400 gap-0.5 mt-0.5">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
                 ))}
               </div>
-              <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-brand-dark/40 mt-1.5">
+              <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-on-surface/40 mt-1.5">
                 based on {syncData.totalReviews} reviews
               </p>
             </div>
             
             {/* Syncing Indicator state */}
             {isSyncing && (
-              <div className="ml-auto w-6 h-6 rounded-full bg-brand-primary/5 flex items-center justify-center text-brand-primary animate-spin">
+              <div className="ml-auto w-6 h-6 rounded-full bg-primary/5 flex items-center justify-center text-primary animate-spin">
                 <RefreshCw size={12} />
               </div>
             )}
@@ -276,7 +276,7 @@ export default function Reviews() {
             {carouselItems.map((item, index) => (
               <div
                 key={`${item.id}-${index}`}
-                className="w-[320px] md:w-[380px] p-6 rounded-3xl bg-white/40 border border-white/60 shadow-sm backdrop-blur-md flex flex-col justify-between text-left shrink-0 transition-all hover:bg-white/80 hover:border-brand-primary/20 hover:shadow-md hover:scale-[1.01]"
+                className="w-[320px] md:w-[380px] p-6 rounded-3xl bg-surface/40 border border-white/60 shadow-sm backdrop-blur-md flex flex-col justify-between text-left shrink-0 transition-all hover:bg-surface/80 hover:border-brand-primary/20 hover:shadow-md hover:scale-[1.01]"
               >
                 <div>
                   {/* Rating star set and date info */}
@@ -286,19 +286,19 @@ export default function Reviews() {
                         <Star key={starIdx} size={14} className="fill-amber-400 text-amber-400" />
                       ))}
                     </div>
-                    <span className="text-[10px] font-mono text-brand-dark/40 font-bold uppercase tracking-wider shrink-0">
+                    <span className="text-[10px] font-mono text-on-surface/40 font-bold uppercase tracking-wider shrink-0">
                       {item.relative_time_description || "Recently"}
                     </span>
                   </div>
 
                   {/* Comment */}
-                  <p className="text-sm text-brand-dark/80 font-normal leading-relaxed italic mb-6">
+                  <p className="text-sm text-on-surface-variant font-normal leading-relaxed italic mb-6">
                     "{item.text}"
                   </p>
                 </div>
 
                 {/* Profile row */}
-                <div className="flex items-center justify-between border-t border-brand-dark/5 pt-4 mt-auto">
+                <div className="flex items-center justify-between border-t border-outline pt-4 mt-auto">
                   <div className="flex items-center gap-3">
                     {/* Dynamic Avatar rendering with fallback initials */}
                     {item.profile_photo_url ? (
@@ -307,7 +307,7 @@ export default function Reviews() {
                         alt={item.author_name}
                         category="personal"
                         className="w-full h-full object-cover"
-                        containerClassName="w-10 h-10 rounded-full border border-brand-dark/15 shadow-inner"
+                        containerClassName="w-10 h-10 rounded-full border border-outline shadow-inner"
                       />
                     ) : (
                       <div className={`w-10 h-10 rounded-full border flex items-center justify-center text-xs font-bold font-mono shadow-inner ${getAvatarBg(item.author_name)}`}>
@@ -315,10 +315,10 @@ export default function Reviews() {
                       </div>
                     )}
                     <div>
-                      <h4 className="font-display font-extrabold text-sm text-brand-dark leading-tight">
+                      <h4 className="font-display font-extrabold text-sm text-on-surface leading-tight">
                         {item.author_name}
                       </h4>
-                      <p className="text-[9px] font-mono font-bold text-brand-dark/40 uppercase tracking-widest mt-0.5">
+                      <p className="text-[9px] font-mono font-bold text-on-surface/40 uppercase tracking-widest mt-0.5">
                         Verified customer
                       </p>
                     </div>
@@ -338,7 +338,7 @@ export default function Reviews() {
         </div>
 
         {/* Sync Data source label */}
-        <div className="mt-6 text-center text-[10px] font-mono text-brand-dark/40 font-bold uppercase tracking-widest">
+        <div className="mt-6 text-center text-[10px] font-mono text-on-surface/40 font-bold uppercase tracking-widest">
           {syncData.source === "api" ? (
             <span>● Sync active: Google Places API Live</span>
           ) : syncData.source === "cache" ? (

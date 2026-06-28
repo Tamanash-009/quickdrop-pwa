@@ -28,7 +28,7 @@ export default function ExpandableFAB() {
       label: "WhatsApp",
       icon: MessageCircle,
       color: "bg-[#25D366]",
-      textColor: "text-white",
+      textColor: "text-on-primary",
       onClick: () => {
         trackWhatsAppClick("General Enquiry");
         handleWhatsAppClick("General Enquiry");
@@ -39,8 +39,8 @@ export default function ExpandableFAB() {
       id: "call",
       label: "Call Now",
       icon: Phone,
-      color: "bg-brand-primary",
-      textColor: "text-white",
+      color: "bg-primary",
+      textColor: "text-on-primary",
       onClick: () => {
         trackCallClick();
         handleCallNowClick();
@@ -52,7 +52,7 @@ export default function ExpandableFAB() {
       label: "Email Support",
       icon: Mail,
       color: "bg-amber-500",
-      textColor: "text-white",
+      textColor: "text-on-primary",
       onClick: () => {
         trackEvent("email_click", "engagement", "Email Support");
         window.location.href = `mailto:${businessConfig.contact.email}`;
@@ -64,7 +64,7 @@ export default function ExpandableFAB() {
       label: "Find Us",
       icon: MapPin,
       color: "bg-rose-500",
-      textColor: "text-white",
+      textColor: "text-on-primary",
       onClick: () => {
         trackEvent("map_find_us", "engagement", "Find Us Click");
         const element = document.querySelector("#contact");
@@ -100,7 +100,7 @@ export default function ExpandableFAB() {
                   transition={{ delay: (actions.length - index - 1) * 0.05 }}
                   className="flex items-center gap-3"
                 >
-                  <span className="px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur-md shadow-md text-xs font-bold text-brand-dark border border-white/40">
+                  <span className="px-3 py-1.5 rounded-lg bg-surface/90 backdrop-blur-md shadow-md text-xs font-bold text-on-surface border border-white/40">
                     {action.label}
                   </span>
                   <button
@@ -120,7 +120,7 @@ export default function ExpandableFAB() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 ${
-          isOpen ? "bg-white text-brand-dark rotate-45 border border-brand-dark/10" : "bg-gradient-to-tr from-brand-primary to-brand-cyan text-white hover:scale-105"
+          isOpen ? "bg-surface text-on-surface rotate-45 border border-outline" : "bg-gradient-to-tr from-brand-primary to-brand-cyan text-on-primary hover:scale-105"
         }`}
       >
         <span className="sr-only">Toggle Contact Menu</span>

@@ -20,23 +20,24 @@ export default class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
+    // In a production app, log this to a telemetry service (e.g., Sentry)
+    // console.error removed for security hardening
   }
 
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-brand-light flex flex-col items-center justify-center p-6 text-center">
+        <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 text-center">
           <div className="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center mb-6 text-red-500">
             <AlertTriangle size={40} strokeWidth={1.5} />
           </div>
-          <h1 className="font-display font-extrabold text-2xl md:text-3xl text-brand-dark mb-2">Something went wrong</h1>
-          <p className="text-brand-dark/60 max-w-sm mb-8 text-sm leading-relaxed">
+          <h1 className="font-display font-extrabold text-2xl md:text-3xl text-on-surface mb-2">Something went wrong</h1>
+          <p className="text-on-surface-variant max-w-sm mb-8 text-sm leading-relaxed">
             An unexpected error occurred. Our technical team has been notified.
           </p>
           <button 
             onClick={() => window.location.reload()}
-            className="px-6 py-3 rounded-xl bg-brand-primary text-white font-bold text-sm uppercase tracking-wider shadow-lg hover:bg-brand-primary/90 transition-all flex items-center gap-2"
+            className="px-6 py-3 rounded-xl bg-primary text-on-primary font-bold text-sm uppercase tracking-wider shadow-lg hover:bg-primary/90 transition-all flex items-center gap-2"
           >
             <RefreshCcw size={16} />
             <span>Reload Page</span>

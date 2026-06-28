@@ -83,10 +83,10 @@ export default function Logo({ className = "h-8", showText = true }: { className
       {/* Brand Text Elements */}
       {showText && (
         <div className="flex flex-col leading-none">
-          <span className="font-display font-extrabold text-2xl tracking-tight text-brand-dark flex items-center gap-0.5">
+          <span className="font-display font-extrabold text-2xl tracking-tight text-on-surface flex items-center gap-0.5">
             Quick<span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-gradient-mid to-brand-gradient-end">Drop</span>
           </span>
-          <span className="text-[9px] font-mono tracking-[0.22em] text-brand-primary/80 font-semibold uppercase mt-0.5">
+          <span className="text-[9px] font-mono tracking-[0.22em] text-primary/80 font-semibold uppercase mt-0.5">
             Hyperlocal Delivery
           </span>
         </div>

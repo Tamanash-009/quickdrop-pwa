@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { featuredProducts } from "../data";
 import { handleCallNowClick } from "../utils";
 import LazyImage from "./LazyImage";
+import ProductCard from "./ProductCard";
+import { useCart } from "../context/CartContext";
+import { ShoppingBag } from "lucide-react";
 
 interface FeaturedCategoriesProps {
   selectedCategory: string;
@@ -294,6 +297,9 @@ export default function FeaturedCategories({
   const categoriesSliderRef = useRef<HTMLDivElement>(null);
   const [categoriesConstraints, setCategoriesConstraints] = useState({ left: 0, right: 0 });
 
+  const searchResultsRef = useRef<HTMLDivElement>(null);
+  const { addToCart } = useCart();
+
   const shelfContainerRef = useRef<HTMLDivElement>(null);
   const shelfSliderRef = useRef<HTMLDivElement>(null);
   const [shelfConstraints, setShelfConstraints] = useState({ left: 0, right: 0 });
@@ -456,11 +462,11 @@ export default function FeaturedCategories({
   return (
     <section
       id="featured"
-      className="py-24 px-6 md:px-12 relative overflow-hidden bg-brand-light"
+      className="py-24 px-6 md:px-12 relative overflow-hidden bg-background"
     >
       {/* Visual background accents */}
       <div className="absolute top-[-10%] right-[-10%] w-[300px] aspect-square rounded-full bg-brand-cyan/5 blur-[80px]" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[350px] aspect-square rounded-full bg-brand-primary/5 blur-[100px]" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[350px] aspect-square rounded-full bg-primary/5 blur-[100px]" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -470,27 +476,27 @@ export default function FeaturedCategories({
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="px-3.5 py-1 rounded-full bg-brand-primary/10 text-[11px] font-mono tracking-widest font-bold uppercase text-brand-primary inline-flex items-center gap-1.5 mb-4"
+            className="px-3.5 py-1 rounded-full bg-primary/10 text-[11px] font-mono tracking-widest font-bold uppercase text-primary inline-flex items-center gap-1.5 mb-4"
           >
             <span>Neighborhood Mart</span>
           </motion.div>
-          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-brand-dark tracking-tight">
+          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-on-surface tracking-tight">
             Explore 750+ Local Products
           </h2>
-          <p className="mt-4 text-sm md:text-base text-brand-dark/70 leading-relaxed">
+          <p className="mt-4 text-sm md:text-base text-on-surface-variant leading-relaxed">
             Choose a neighborhood catalog section or search directly. Every card has a direct <b>Connect Now</b> WhatsApp trigger. Absolutely zero hidden surcharges or online checkout required.
           </p>
         </div>
 
         {/* Advanced Search, Popular, History and Filter Tools */}
-        <div className="flex flex-col gap-6 mb-12 glass-card p-6 md:p-8 rounded-[32px] border border-white/60 bg-white/40 shadow-sm relative z-20">
+        <div className="flex flex-col gap-6 mb-12 glass-card p-6 md:p-8 rounded-[32px] border border-white/60 bg-background/40 shadow-sm relative z-20">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             
             {/* Search Box with Suggestions & Voice placeholder */}
             <div className="col-span-1 lg:col-span-7 relative">
               <div className="relative">
-                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-brand-dark/40">
+                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface/40">
                   <span className="material-symbols-rounded text-xl">search</span>
                 </div>
                 
@@ -507,7 +513,7 @@ export default function FeaturedCategories({
                     // Slight delay to allow suggestions clicks to process
                     setTimeout(() => setIsSuggestionsOpen(false), 200);
                   }}
-                  className="w-full pl-11 pr-24 py-4 rounded-2xl bg-white border border-brand-dark/15 hover:border-brand-primary focus:border-brand-primary outline-none font-medium text-sm text-brand-dark transition-all shadow-sm focus:shadow-md"
+                  className="w-full pl-11 pr-24 py-4 rounded-2xl bg-background border border-outline hover:border-brand-primary focus:border-brand-primary outline-none font-medium text-sm text-on-surface transition-all shadow-sm focus:shadow-md"
                   id="product-search-bar"
                 />
 
@@ -517,8 +523,8 @@ export default function FeaturedCategories({
                     onClick={handleVoiceSearch}
                     className={`h-10 w-10 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
                       isListening
-                        ? "bg-red-500 text-white animate-pulse"
-                        : "bg-slate-100 hover:bg-slate-200 text-brand-dark/60 hover:text-brand-dark"
+                        ? "bg-red-500 text-on-primary animate-pulse"
+                        : "bg-surface-variant hover:bg-surface-variant text-on-surface-variant hover:text-on-surface"
                     }`}
                     title="Simulate Voice Search"
                   >
@@ -533,7 +539,7 @@ export default function FeaturedCategories({
                         setSearchQuery("");
                         setIsSuggestionsOpen(false);
                       }}
-                      className="h-10 w-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-brand-dark/50 flex items-center justify-center cursor-pointer"
+                      className="h-10 w-10 rounded-xl bg-surface-variant hover:bg-surface-variant text-on-surface-variant flex items-center justify-center cursor-pointer"
                     >
                       <span className="material-symbols-rounded text-sm">close</span>
                     </button>
@@ -548,18 +554,18 @@ export default function FeaturedCategories({
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 5 }}
-                    className="absolute left-0 right-0 mt-2 bg-white border border-brand-dark/10 rounded-2xl shadow-xl z-50 overflow-hidden max-h-[300px] overflow-y-auto"
+                    className="absolute left-0 right-0 mt-2 bg-background border border-outline rounded-2xl shadow-xl z-50 overflow-hidden max-h-[300px] overflow-y-auto"
                   >
-                    <div className="px-4 py-2.5 bg-slate-50 text-[10px] font-bold text-brand-dark/40 uppercase tracking-wider">
+                    <div className="px-4 py-2.5 bg-surface-variant text-[10px] font-bold text-on-surface/40 uppercase tracking-wider">
                       Live Suggestions
                     </div>
                     {suggestions.map((s) => (
                       <button
                         key={s}
                         onMouseDown={() => handleSuggestionSelect(s)}
-                        className="w-full text-left px-4 py-3 text-sm font-medium hover:bg-brand-primary/5 text-brand-dark hover:text-brand-primary transition-all flex items-center gap-2.5 border-b border-slate-50 last:border-0 cursor-pointer"
+                        className="w-full text-left px-4 py-3 text-sm font-medium hover:bg-primary/5 text-on-surface hover:text-primary transition-all flex items-center gap-2.5 border-b border-slate-50 last:border-0 cursor-pointer"
                       >
-                        <span className="material-symbols-rounded text-base text-brand-dark/30">search</span>
+                        <span className="material-symbols-rounded text-base text-on-surface/30">search</span>
                         <span>{s}</span>
                       </button>
                     ))}
@@ -574,7 +580,7 @@ export default function FeaturedCategories({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="absolute inset-0 rounded-2xl bg-brand-dark/95 flex items-center justify-center gap-3 text-white font-mono text-sm z-40"
+                    className="absolute inset-0 rounded-2xl bg-on-surface/95 flex items-center justify-center gap-3 text-on-primary font-mono text-sm z-40"
                   >
                     <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
                     <span>Listening to Salt Lake voice feed... Speaking "{voicePhrase}"</span>
@@ -585,7 +591,7 @@ export default function FeaturedCategories({
 
             {/* Veg / Non-Veg Quick Selector Segment */}
             <div className="col-span-1 lg:col-span-5 flex justify-end">
-              <div className="bg-slate-100 p-1 rounded-2xl flex w-full max-w-md shadow-inner">
+              <div className="bg-surface-variant p-1 rounded-2xl flex w-full max-w-md shadow-inner">
                 {(["all", "veg", "non-veg"] as const).map((filter) => {
                   const isActive = activeVegFilter === filter;
                   return (
@@ -594,8 +600,8 @@ export default function FeaturedCategories({
                       onClick={() => setActiveVegFilter(filter)}
                       className={`flex-1 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all cursor-pointer ${
                         isActive
-                          ? "bg-white text-brand-dark shadow-sm"
-                          : "text-brand-dark/50 hover:text-brand-dark"
+                          ? "bg-background text-on-surface shadow-sm"
+                          : "text-on-surface-variant hover:text-on-surface"
                       }`}
                     >
                       {filter === "all" ? "All Diets" : filter === "veg" ? "Veg Only" : "Non-Veg Only"}
@@ -607,10 +613,10 @@ export default function FeaturedCategories({
           </div>
 
           {/* Search History & Popular Searches */}
-          <div className="border-t border-brand-dark/5 pt-4 flex flex-col gap-3.5">
+          <div className="border-t border-outline pt-4 flex flex-col gap-3.5">
             {/* Popular Searches */}
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold text-brand-dark/45 uppercase tracking-wide">Popular:</span>
+              <span className="text-xs font-bold text-on-surface/45 uppercase tracking-wide">Popular:</span>
               {popularSearches.map((term) => (
                 <button
                   key={term}
@@ -618,7 +624,7 @@ export default function FeaturedCategories({
                     setSearchQuery(term);
                     addToHistory(term);
                   }}
-                  className="px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-brand-primary/10 hover:text-brand-primary border border-brand-dark/5 text-xs font-medium text-brand-dark/70 transition-all cursor-pointer"
+                  className="px-3 py-1.5 rounded-xl bg-surface-variant hover:bg-primary/10 hover:text-primary border border-outline text-xs font-medium text-on-surface-variant transition-all cursor-pointer"
                 >
                   {term}
                 </button>
@@ -628,15 +634,15 @@ export default function FeaturedCategories({
             {/* Search History */}
             {searchHistory.length > 0 && (
               <div className="flex flex-wrap items-center gap-2 border-t border-slate-100/70 pt-3">
-                <span className="text-xs font-bold text-brand-dark/45 uppercase tracking-wide">Recent:</span>
+                <span className="text-xs font-bold text-on-surface/45 uppercase tracking-wide">Recent:</span>
                 {searchHistory.map((term) => (
                   <button
                     key={term}
                     onClick={() => setSearchQuery(term)}
-                    className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-transparent text-xs font-medium text-brand-dark/70 transition-all flex items-center gap-1 cursor-pointer"
+                    className="px-3 py-1.5 rounded-xl bg-surface-variant hover:bg-surface-variant border border-transparent text-xs font-medium text-on-surface-variant transition-all flex items-center gap-1 cursor-pointer"
                   >
                     <span>{term}</span>
-                    <span className="material-symbols-rounded text-[11px] text-brand-dark/30">history</span>
+                    <span className="material-symbols-rounded text-[11px] text-on-surface/30">history</span>
                   </button>
                 ))}
                 <button
@@ -650,20 +656,20 @@ export default function FeaturedCategories({
           </div>
 
           {/* Stacking Toggle Filter Badges */}
-          <div className="border-t border-brand-dark/5 pt-4">
+          <div className="border-t border-outline pt-4">
             <div className="flex flex-wrap gap-2.5">
-              <span className="text-xs font-bold text-brand-dark/45 uppercase tracking-wide self-center mr-1">Toggles:</span>
+              <span className="text-xs font-bold text-on-surface/45 uppercase tracking-wide self-center mr-1">Toggles:</span>
               
               {/* Available Today Toggle */}
               <button
                 onClick={() => setOnlyAvailable(!onlyAvailable)}
                 className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   onlyAvailable
-                    ? "bg-emerald-500 text-white shadow-sm"
-                    : "bg-slate-50 hover:bg-slate-100 border border-brand-dark/10 text-brand-dark/70"
+                    ? "bg-emerald-500 text-on-primary shadow-sm"
+                    : "bg-surface-variant hover:bg-surface-variant border border-outline text-on-surface-variant"
                 }`}
               >
-                <span className={`w-1.5 h-1.5 rounded-full ${onlyAvailable ? "bg-white animate-pulse" : "bg-emerald-500"}`} />
+                <span className={`w-1.5 h-1.5 rounded-full ${onlyAvailable ? "bg-background animate-pulse" : "bg-emerald-500"}`} />
                 <span>Available Today</span>
               </button>
 
@@ -672,8 +678,8 @@ export default function FeaturedCategories({
                 onClick={() => setOnlyFastDelivery(!onlyFastDelivery)}
                 className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   onlyFastDelivery
-                    ? "bg-brand-primary text-white shadow-sm"
-                    : "bg-slate-50 hover:bg-slate-100 border border-brand-dark/10 text-brand-dark/70"
+                    ? "bg-primary text-on-primary shadow-sm"
+                    : "bg-surface-variant hover:bg-surface-variant border border-outline text-on-surface-variant"
                 }`}
               >
                 <span className="material-symbols-rounded text-xs">{onlyFastDelivery ? "bolt" : "bolt"}</span>
@@ -685,8 +691,8 @@ export default function FeaturedCategories({
                 onClick={() => setOnlyOrganic(!onlyOrganic)}
                 className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   onlyOrganic
-                    ? "bg-teal-600 text-white shadow-sm"
-                    : "bg-slate-50 hover:bg-slate-100 border border-brand-dark/10 text-brand-dark/70"
+                    ? "bg-teal-600 text-on-primary shadow-sm"
+                    : "bg-surface-variant hover:bg-surface-variant border border-outline text-on-surface-variant"
                 }`}
               >
                 <span className="material-symbols-rounded text-xs">eco</span>
@@ -698,8 +704,8 @@ export default function FeaturedCategories({
                 onClick={() => setOnlyFreshToday(!onlyFreshToday)}
                 className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   onlyFreshToday
-                    ? "bg-amber-500 text-white shadow-sm"
-                    : "bg-slate-50 hover:bg-slate-100 border border-brand-dark/10 text-brand-dark/70"
+                    ? "bg-amber-500 text-on-primary shadow-sm"
+                    : "bg-surface-variant hover:bg-surface-variant border border-outline text-on-surface-variant"
                 }`}
               >
                 <span className="material-symbols-rounded text-xs">calendar_today</span>
@@ -710,7 +716,7 @@ export default function FeaturedCategories({
         </div>
 
         {/* Scrolling Categories Segment Control */}
-        <div ref={categoriesContainerRef} className="relative w-full border-b border-brand-dark/5 pb-2 mb-12 overflow-hidden cursor-grab active:cursor-grabbing">
+        <div ref={categoriesContainerRef} className="relative w-full border-b border-outline pb-2 mb-12 overflow-hidden cursor-grab active:cursor-grabbing">
           <motion.div 
             ref={categoriesSliderRef}
             drag="x"
@@ -735,8 +741,8 @@ export default function FeaturedCategories({
                   }}
                   className={`px-5 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap cursor-pointer shrink-0 ${
                     isActive
-                      ? "bg-gradient-to-r from-brand-primary to-brand-gradient-end text-white shadow-md scale-[1.01]"
-                      : "bg-white border border-brand-dark/15 text-brand-dark hover:border-brand-primary hover:text-brand-primary"
+                      ? "bg-gradient-to-r from-brand-primary to-brand-gradient-end text-on-primary shadow-md scale-[1.01]"
+                      : "bg-background border border-outline text-on-surface hover:border-brand-primary hover:text-primary"
                   }`}
                 >
                   {cat}
@@ -752,7 +758,7 @@ export default function FeaturedCategories({
             key={selectedCategory}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-12 relative overflow-hidden rounded-[32px] border border-white/60 bg-gradient-to-r from-brand-dark/95 to-brand-dark/80 text-white shadow-xl flex items-center p-6 md:p-12 min-h-[160px] md:min-h-[220px]"
+            className="mb-12 relative overflow-hidden rounded-[32px] border border-white/60 bg-gradient-to-r from-brand-dark/95 to-brand-dark/80 text-on-primary shadow-xl flex items-center p-6 md:p-12 min-h-[160px] md:min-h-[220px]"
           >
             {/* Background Image */}
             <div className="absolute inset-0">
@@ -771,7 +777,7 @@ export default function FeaturedCategories({
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-cyan animate-pulse" />
                 <span>{selectedBanner.stat}</span>
               </span>
-              <h2 className="font-display font-black text-2xl md:text-3xl lg:text-4xl leading-tight text-white tracking-tight">
+              <h2 className="font-display font-black text-2xl md:text-3xl lg:text-4xl leading-tight text-on-primary tracking-tight">
                 {selectedBanner.title}
               </h2>
               <p className="mt-2 text-xs md:text-sm text-slate-300 leading-relaxed max-w-md">
@@ -782,7 +788,7 @@ export default function FeaturedCategories({
         )}
 
         {/* Swipe indicator helper for mobile devices */}
-        <div className="flex sm:hidden items-center justify-center gap-2 mb-6 text-brand-primary/60 text-xs font-mono font-bold uppercase tracking-widest animate-pulse select-none">
+        <div className="flex sm:hidden items-center justify-center gap-2 mb-6 text-primary/60 text-xs font-mono font-bold uppercase tracking-widest animate-pulse select-none">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
           </svg>
@@ -797,157 +803,17 @@ export default function FeaturedCategories({
             dragConstraints={shelfConstraints}
             dragElastic={0.15}
             dragListener={typeof window !== "undefined" && window.innerWidth < 640}
-            layout
             className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 min-h-[400px] w-full"
             style={{ x: 0 }}
           >
             <AnimatePresence mode="popLayout">
-              {filteredProducts.slice(0, 100).map((product) => {
-                return (
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.92 }}
-                    transition={{ duration: 0.4 }}
-                    key={product.id}
-                    className="group rounded-[24px] glass-card hover:glass-card-hover border border-white/60 bg-white/40 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between w-[280px] sm:w-auto shrink-0 sm:shrink"
-                  >
-                    {/* Image & Badges Banner */}
-                    <div className="relative aspect-video w-full overflow-hidden bg-brand-dark/5">
-                      <LazyImage
-                        src={product.image}
-                        alt={product.name}
-                        category={product.category}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-
-                      {/* Gradient shading overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/50 via-transparent to-transparent opacity-60 pointer-events-none" />
-
-                      {/* Left Badges */}
-                      <div className="absolute top-3 left-3 flex flex-col gap-1.5">
-                        {product.isPopular && (
-                          <span className="px-2.5 py-1 text-[9px] font-mono tracking-widest font-extrabold uppercase bg-brand-primary text-white rounded-md shadow-sm">
-                            POPULAR
-                          </span>
-                        )}
-                        {product.isOrganic && (
-                          <span className="px-2.5 py-1 text-[9px] font-mono tracking-widest font-extrabold uppercase bg-teal-600 text-white rounded-md shadow-sm">
-                            ORGANIC
-                          </span>
-                        )}
-                        {product.isFreshToday && (
-                          <span className="px-2.5 py-1 text-[9px] font-mono tracking-widest font-extrabold uppercase bg-amber-500 text-white rounded-md shadow-sm">
-                            FRESH
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Right Veg/Non-Veg Indicator Dot */}
-                      {product.isVeg !== undefined && (
-                        <div className="absolute top-3 right-3 bg-white/95 border border-white p-1 rounded-md shadow-sm flex items-center gap-1">
-                          <span className={`w-2 h-2 rounded-full ${product.isVeg ? "bg-emerald-500" : "bg-red-500"}`} />
-                          <span className="text-[9px] font-bold text-brand-dark/70 pr-1 select-none">
-                            {product.isVeg ? "VEG" : "NON-VEG"}
-                          </span>
-                        </div>
-                      )}
-
-                      {/* Available Today Badge / Unit Info */}
-                      {product.isAvailableToday ? (
-                        <div className="absolute bottom-3 left-3 bg-emerald-500/10 backdrop-blur-md border border-emerald-500/35 rounded-lg px-2.5 py-1 shadow-sm flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                          <span className="text-[9px] font-mono font-extrabold text-emerald-700 tracking-wider uppercase select-none">
-                            Available Today • {product.unit}
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="absolute bottom-3 left-3 bg-red-500/10 backdrop-blur-md border border-red-500/35 rounded-lg px-2.5 py-1 shadow-sm flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                          <span className="text-[9px] font-mono font-extrabold text-red-700 tracking-wider uppercase select-none">
-                            Out of Stock • {product.unit}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Body Details */}
-                    <div className="p-5 flex-1 flex flex-col justify-between text-left">
-                      <div>
-                        {/* Rating Block & Availability Badge */}
-                        <div className="flex items-center justify-between gap-1 mb-2">
-                          <div className="flex items-center gap-1">
-                            <div className="flex text-yellow-400">
-                              <span className="material-symbols-rounded text-sm font-fill">star</span>
-                            </div>
-                            <span className="text-xs font-bold text-brand-dark/80">{product.rating}</span>
-                          </div>
-                          
-                          <div className="flex items-center gap-1 text-[9px] font-mono font-bold text-brand-primary/80 uppercase tracking-wide bg-brand-primary/5 px-2 py-0.5 rounded-md">
-                            <span className="material-symbols-rounded text-xs">bolt</span>
-                            <span>{product.isFastDelivery ? "30m Delivery" : "Standard"}</span>
-                          </div>
-                        </div>
-
-                        {/* Product Name */}
-                        <h3 className="font-display font-bold text-base md:text-lg text-brand-dark tracking-tight line-clamp-2 group-hover:text-brand-primary transition-colors">
-                          {product.name}
-                        </h3>
-                        
-                        {/* Category / Subcategory Badge Row */}
-                        <div className="flex flex-wrap gap-1.5 mt-1">
-                          <span className="text-[9px] font-mono uppercase tracking-wider text-brand-dark/50 bg-slate-100 px-2 py-0.5 rounded">
-                            {product.category}
-                          </span>
-                          {product.subcategory && (
-                            <span className="text-[9px] font-mono uppercase tracking-wider text-brand-primary bg-brand-primary/5 px-2 py-0.5 rounded">
-                              {product.subcategory}
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Prescription Required warning */}
-                        {product.prescriptionRequired && (
-                          <div className="mt-2.5 px-3 py-1.5 rounded-lg bg-red-50 border border-red-100 flex items-center gap-1.5 text-red-700 text-[10px] font-bold">
-                            <span className="material-symbols-rounded text-sm">prescription</span>
-                            <span>Prescription Required prior to dispatch</span>
-                          </div>
-                        )}
-
-                        <p className="text-xs text-brand-dark/60 mt-2.5 line-clamp-2">
-                          {product.description || `Premium quality fresh ${product.name.toLowerCase()} sourced from verified local partner shops in Salt Lake.`}
-                        </p>
-                      </div>
-
-                      {/* Interactive Contact/WhatsApp Row */}
-                      <div className="mt-5 border-t border-brand-dark/5 pt-4 flex gap-2">
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => onEnquiry(product.name)}
-                          className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-gradient-end text-white text-[11px] font-extrabold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
-                        >
-                          <svg className="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.454L0 24zm6.59-4.846c1.6.95 3.16 1.449 4.825 1.451 5.436 0 9.859-4.407 9.862-9.83.001-2.628-1.02-5.1-2.871-6.954C16.586 1.968 14.12.94 11.488.94 6.054.94 1.631 5.348 1.628 10.771c0 1.705.452 3.237 1.411 4.789L2.03 21.07l5.617-1.472z" />
-                          </svg>
-                          <span>Connect Now</span>
-                        </motion.button>
-
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={handleCallNowClick}
-                          className="px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-brand-dark/70 hover:text-brand-dark transition-all flex items-center justify-center cursor-pointer"
-                          title="Call Now"
-                        >
-                          <span className="material-symbols-rounded text-base">phone</span>
-                        </motion.button>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+              {filteredProducts.slice(0, 100).map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddToCart={addToCart}
+                />
+              ))}
             </AnimatePresence>
 
             {/* Fallback Empty Search state */}
@@ -957,11 +823,11 @@ export default function FeaturedCategories({
                 animate={{ opacity: 1 }}
                 className="col-span-1 sm:col-span-2 lg:col-span-4 py-20 flex flex-col items-center justify-center text-center w-full shrink-0 sm:shrink-1"
               >
-                <div className="w-16 h-16 rounded-full bg-brand-dark/5 flex items-center justify-center text-brand-dark/40 mb-4">
+                <div className="w-16 h-16 rounded-full bg-on-surface/5 flex items-center justify-center text-on-surface/40 mb-4">
                   <span className="material-symbols-rounded text-3xl">shopping_bag</span>
                 </div>
-                <h3 className="font-display font-bold text-xl text-brand-dark">No Products Found</h3>
-                <p className="text-sm text-brand-dark/60 mt-1 max-w-sm">
+                <h3 className="font-display font-bold text-xl text-on-surface">No Products Found</h3>
+                <p className="text-sm text-on-surface-variant mt-1 max-w-sm">
                   No active neighborhood partner stock matches your filters or keyword "{searchQuery}" under "{selectedCategory}". Try updating your filters.
                 </p>
               </motion.div>

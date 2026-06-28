@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { businessConfig } from "../config/business";
 import { trackWhatsAppClick } from "../utils/analytics";
+import { useNotification } from "../context/NotificationContext";
 
 interface EnquiryModalProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ interface CustomerDetails {
 }
 
 export default function EnquiryModal({ isOpen, onClose, productName }: EnquiryModalProps) {
+  const { success } = useNotification();
   const [fullName, setFullName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [address, setAddress] = useState("");
@@ -206,9 +208,11 @@ I would like to enquire about your delivery service.
 
 ━━━━━━━━━━━━━━━━━━
 
-Product / Service
+Order Summary
 
-${productName}
+Service: ${productName}
+Delivery Area: Nischintapur (Within ${businessConfig.delivery.radiusKm} KM)
+Delivery Fee: ₹${businessConfig.delivery.charge}
 
 ━━━━━━━━━━━━━━━━━━
 
@@ -255,6 +259,10 @@ Thank you.`;
 
     // Open instantly
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    
+    // Show success toast
+    success("Enquiry Started", "We will respond on WhatsApp shortly.");
+    
     onClose();
   };
 
@@ -268,7 +276,7 @@ Thank you.`;
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-brand-dark/40 backdrop-blur-md cursor-pointer"
+            className="fixed inset-0 bg-on-surface/40 backdrop-blur-md cursor-pointer"
           />
 
           {/* Modal Card / Bottom Sheet on Mobile */}
@@ -282,24 +290,24 @@ Thank you.`;
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "100%", opacity: 0.8 }}
             transition={{ type: "spring", damping: 25, stiffness: 220 }}
-            className="relative w-full sm:max-w-xl bg-white/95 backdrop-blur-xl border border-white/60 shadow-2xl rounded-t-[28px] sm:rounded-[28px] overflow-hidden flex flex-col pointer-events-auto max-h-[92vh] sm:max-h-[85vh] focus:outline-none"
+            className="relative w-full sm:max-w-xl bg-surface/95 backdrop-blur-xl border border-white/60 shadow-2xl rounded-t-[28px] sm:rounded-[28px] overflow-hidden flex flex-col pointer-events-auto max-h-[92vh] sm:max-h-[85vh] focus:outline-none"
           >
             {/* Top Indicator handle bar for mobile sheets */}
             <div className="flex justify-center pt-3 pb-1 sm:hidden">
-              <div className="w-12 h-1.5 rounded-full bg-brand-dark/15" />
+              <div className="w-12 h-1.5 rounded-full bg-on-surface/15" />
             </div>
 
             {/* Header section with Material design elements */}
-            <div className="px-6 pt-4 pb-4 border-b border-brand-dark/5 flex items-center justify-between">
+            <div className="px-6 pt-4 pb-4 border-b border-outline flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-primary/10 to-brand-cyan/10 text-brand-primary flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-primary/10 to-brand-cyan/10 text-primary flex items-center justify-center">
                   <span className="material-symbols-rounded text-lg font-bold">chat</span>
                 </div>
                 <div className="text-left">
-                  <h3 id="modal-title" className="font-display font-extrabold text-lg text-brand-dark tracking-tight leading-tight">
+                  <h3 id="modal-title" className="font-display font-extrabold text-lg text-on-surface tracking-tight leading-tight">
                     Quick Enquiry Setup
                   </h3>
-                  <p className="text-[10px] text-brand-dark/50 font-mono tracking-widest uppercase mt-0.5">
+                  <p className="text-[10px] text-on-surface-variant font-mono tracking-widest uppercase mt-0.5">
                     No checkout hassle • Instant WhatsApp
                   </p>
                 </div>
@@ -308,7 +316,7 @@ Thank you.`;
                 type="button"
                 onClick={onClose}
                 aria-label="Close modal"
-                className="w-8 h-8 rounded-full hover:bg-brand-dark/5 flex items-center justify-center text-brand-dark/60 transition-colors focus:ring-2 focus:ring-brand-primary/20 outline-none"
+                className="w-8 h-8 rounded-full hover:bg-on-surface/5 flex items-center justify-center text-on-surface-variant transition-colors focus:ring-2 focus:ring-brand-primary/20 outline-none"
               >
                 <span className="material-symbols-rounded text-xl">close</span>
               </button>
@@ -318,11 +326,11 @@ Thank you.`;
             <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto px-6 py-5 space-y-5 text-left">
               {/* Product Info Display (Read Only Block) */}
               <div className="p-4 rounded-2xl bg-gradient-to-r from-brand-primary/5 to-brand-cyan/5 border border-brand-primary/10">
-                <span className="text-[10px] font-mono font-bold text-brand-primary tracking-widest uppercase block mb-1">
+                <span className="text-[10px] font-mono font-bold text-primary tracking-widest uppercase block mb-1">
                   Selected Item For Enquiry
                 </span>
-                <div className="flex items-center justify-between">
-                  <h4 className="font-display font-extrabold text-base text-brand-dark">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="font-display font-extrabold text-base text-on-surface">
                     {productName}
                   </h4>
                   <div className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-[9px] font-bold tracking-wider flex items-center gap-1">
@@ -330,11 +338,27 @@ Thank you.`;
                     <span>AVAILABLE TODAY</span>
                   </div>
                 </div>
+                
+                {/* Delivery Information Summary */}
+                <div className="pt-3 border-t border-brand-primary/10 grid grid-cols-2 gap-2 text-[11px] font-bold text-on-surface-variant">
+                   <div className="flex justify-between items-center bg-surface/50 p-2 rounded-lg">
+                      <span className="flex items-center gap-1.5"><span className="material-symbols-rounded text-[14px]">local_shipping</span> Est. Time</span>
+                      <span className="text-on-surface">~{businessConfig.delivery.averageTimeMins} Mins</span>
+                   </div>
+                   <div className="flex justify-between items-center bg-surface/50 p-2 rounded-lg">
+                      <span className="flex items-center gap-1.5"><span className="material-symbols-rounded text-[14px] text-emerald-500">payments</span> Delivery Fee</span>
+                      <span className="text-emerald-600">₹{businessConfig.delivery.charge}</span>
+                   </div>
+                   <div className="col-span-2 flex justify-between items-center bg-surface/50 p-2 rounded-lg">
+                      <span className="flex items-center gap-1.5"><span className="material-symbols-rounded text-[14px] text-primary">location_on</span> Delivery Area</span>
+                      <span className="text-on-surface text-right">Nischintapur (Within {businessConfig.delivery.radiusKm} KM)</span>
+                   </div>
+                </div>
               </div>
 
               {/* Full Name input */}
               <div className="space-y-1.5">
-                <label htmlFor="fullName" className="block text-xs font-bold text-brand-dark uppercase tracking-wider">
+                <label htmlFor="fullName" className="block text-xs font-bold text-on-surface uppercase tracking-wider">
                   Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -347,10 +371,10 @@ Thank you.`;
                     validateField("fullName", e.target.value);
                   }}
                   onBlur={(e) => validateField("fullName", e.target.value)}
-                  className={`w-full px-4 py-3 rounded-2xl bg-white border outline-none text-sm text-brand-dark transition-all ${
+                  className={`w-full px-4 py-3 rounded-2xl bg-surface border outline-none text-sm text-on-surface transition-all ${
                     errors.fullName
                       ? "border-red-500 focus:ring-4 focus:ring-red-100"
-                      : "border-brand-dark/15 focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10"
+                      : "border-outline focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10"
                   }`}
                   required
                 />
@@ -363,11 +387,11 @@ Thank you.`;
 
               {/* Mobile Number input with country indicator */}
               <div className="space-y-1.5">
-                <label htmlFor="mobileNumber" className="block text-xs font-bold text-brand-dark uppercase tracking-wider">
+                <label htmlFor="mobileNumber" className="block text-xs font-bold text-on-surface uppercase tracking-wider">
                   Indian Mobile Number <span className="text-red-500">*</span>
                 </label>
                 <div className="relative flex items-center">
-                  <span className="absolute left-4 text-sm font-bold text-brand-dark/40 select-none">+91</span>
+                  <span className="absolute left-4 text-sm font-bold text-on-surface/40 select-none">+91</span>
                   <input
                     type="tel"
                     id="mobileNumber"
@@ -378,10 +402,10 @@ Thank you.`;
                       validateField("mobileNumber", e.target.value);
                     }}
                     onBlur={(e) => validateField("mobileNumber", e.target.value)}
-                    className={`w-full pl-12 pr-4 py-3 rounded-2xl bg-white border outline-none text-sm text-brand-dark transition-all ${
+                    className={`w-full pl-12 pr-4 py-3 rounded-2xl bg-surface border outline-none text-sm text-on-surface transition-all ${
                       errors.mobileNumber
                         ? "border-red-500 focus:ring-4 focus:ring-red-100"
-                        : "border-brand-dark/15 focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10"
+                        : "border-outline focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10"
                     }`}
                     required
                   />
@@ -396,14 +420,14 @@ Thank you.`;
               {/* Delivery Address input with dynamic Reverse Location trigger */}
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label htmlFor="address" className="block text-xs font-bold text-brand-dark uppercase tracking-wider">
+                  <label htmlFor="address" className="block text-xs font-bold text-on-surface uppercase tracking-wider">
                     Delivery Address <span className="text-red-500">*</span>
                   </label>
                   <button
                     type="button"
                     onClick={handleDetectLocation}
                     disabled={isLocating}
-                    className="text-[10px] font-mono font-bold text-brand-primary flex items-center gap-1 hover:text-brand-cyan transition-colors disabled:opacity-50 cursor-pointer"
+                    className="text-[10px] font-mono font-bold text-primary flex items-center gap-1 hover:text-brand-cyan transition-colors disabled:opacity-50 cursor-pointer"
                   >
                     <span className="material-symbols-rounded text-xs">my_location</span>
                     <span>{isLocating ? "Locating..." : "Auto Detect City"}</span>
@@ -419,10 +443,10 @@ Thank you.`;
                     validateField("address", e.target.value);
                   }}
                   onBlur={(e) => validateField("address", e.target.value)}
-                  className={`w-full px-4 py-3 rounded-2xl bg-white border outline-none text-sm text-brand-dark transition-all resize-none ${
+                  className={`w-full px-4 py-3 rounded-2xl bg-surface border outline-none text-sm text-on-surface transition-all resize-none ${
                     errors.address
                       ? "border-red-500 focus:ring-4 focus:ring-red-100"
-                      : "border-brand-dark/15 focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10"
+                      : "border-outline focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10"
                   }`}
                   required
                 />
@@ -441,8 +465,8 @@ Thank you.`;
 
               {/* Landmark input */}
               <div className="space-y-1.5">
-                <label htmlFor="landmark" className="block text-xs font-bold text-brand-dark uppercase tracking-wider">
-                  Landmark <span className="text-brand-dark/30 font-normal">(Optional)</span>
+                <label htmlFor="landmark" className="block text-xs font-bold text-on-surface uppercase tracking-wider">
+                  Landmark <span className="text-on-surface/30 font-normal">(Optional)</span>
                 </label>
                 <input
                   type="text"
@@ -450,14 +474,14 @@ Thank you.`;
                   placeholder="e.g. Near City Centre Mall, Axis Bank"
                   value={landmark}
                   onChange={(e) => setLandmark(e.target.value)}
-                  className="w-full px-4 py-3 rounded-2xl bg-white border border-brand-dark/15 focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 outline-none text-sm text-brand-dark transition-all"
+                  className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 outline-none text-sm text-on-surface transition-all"
                 />
               </div>
 
               {/* Additional Requirements text field */}
               <div className="space-y-1.5">
-                <label htmlFor="requirements" className="block text-xs font-bold text-brand-dark uppercase tracking-wider">
-                  Additional Requirements <span className="text-brand-dark/30 font-normal">(Optional)</span>
+                <label htmlFor="requirements" className="block text-xs font-bold text-on-surface uppercase tracking-wider">
+                  Additional Requirements <span className="text-on-surface/30 font-normal">(Optional)</span>
                 </label>
                 <textarea
                   id="requirements"
@@ -465,7 +489,7 @@ Thank you.`;
                   placeholder="e.g. Extra spicy, double eggs, deliver before 7 PM..."
                   value={requirements}
                   onChange={(e) => setRequirements(e.target.value)}
-                  className="w-full px-4 py-3 rounded-2xl bg-white border border-brand-dark/15 focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 outline-none text-sm text-brand-dark transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-2xl bg-surface border border-outline focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 outline-none text-sm text-on-surface transition-all resize-none"
                 />
               </div>
 
@@ -477,20 +501,20 @@ Thank you.`;
                     id="rememberMe"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 rounded border-brand-dark/15 text-brand-primary focus:ring-brand-primary cursor-pointer"
+                    className="w-4 h-4 rounded border-outline text-primary focus:ring-brand-primary cursor-pointer"
                   />
                 </div>
-                <label htmlFor="rememberMe" className="text-xs text-brand-dark/70 font-medium cursor-pointer leading-tight">
+                <label htmlFor="rememberMe" className="text-xs text-on-surface-variant font-medium cursor-pointer leading-tight">
                   Remember my details on this device for faster enquiries on future visits.
                 </label>
               </div>
 
               {/* CTA button row inside scrolling container to stay aligned */}
-              <div className="pt-4 pb-2 border-t border-brand-dark/5 flex gap-3 items-center">
+              <div className="pt-4 pb-2 border-t border-outline flex gap-3 items-center">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-4 rounded-[20px] bg-slate-100 hover:bg-slate-200 text-brand-dark font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+                  className="flex-1 py-4 rounded-[20px] bg-surface-variant hover:bg-surface-variant text-on-surface font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -498,10 +522,10 @@ Thank you.`;
                 <button
                   type="submit"
                   disabled={!isFormValid}
-                  className={`flex-[2] py-4 rounded-[20px] font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 text-white cursor-pointer ${
+                  className={`flex-[2] py-4 rounded-[20px] font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 text-on-primary cursor-pointer ${
                     isFormValid
                       ? "bg-gradient-to-r from-brand-primary to-brand-gradient-end"
-                      : "bg-slate-300 border-slate-300 text-white/70 cursor-not-allowed shadow-none"
+                      : "bg-slate-300 border-outline text-on-primary/70 cursor-not-allowed shadow-none"
                   }`}
                 >
                   <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

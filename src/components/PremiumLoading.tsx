@@ -52,7 +52,7 @@ export default function PremiumLoading({ onComplete }: PremiumLoadingProps) {
             y: ["-5%", "5%", "-5%"]
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-1/4 -left-1/4 w-[80vw] h-[80vw] rounded-full bg-brand-primary/10 blur-[120px]" 
+          className="absolute -top-1/4 -left-1/4 w-[80vw] h-[80vw] rounded-full bg-primary/10 blur-[120px]" 
         />
         <motion.div 
           animate={{ 
@@ -65,7 +65,7 @@ export default function PremiumLoading({ onComplete }: PremiumLoadingProps) {
           className="absolute -bottom-1/4 -right-1/4 w-[80vw] h-[80vw] rounded-full bg-brand-cyan/10 blur-[120px]" 
         />
         {/* Soft radial glow directly behind the logo */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-brand-primary/15 rounded-full blur-[80px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-primary/15 rounded-full blur-[80px]" />
       </div>
 
       {/* Main Container - Centered */}
@@ -158,14 +158,14 @@ export default function PremiumLoading({ onComplete }: PremiumLoadingProps) {
         </motion.div>
 
         {/* QuickDrop Title Text */}
-        <h1 className="font-display font-extrabold text-3xl sm:text-4xl tracking-tight text-white flex items-center gap-0.5 select-none mb-2">
+        <h1 className="font-display font-extrabold text-3xl sm:text-4xl tracking-tight text-on-primary flex items-center gap-0.5 select-none mb-2">
           {["Q", "u", "i", "c", "k", "D", "r", "o", "p"].map((char, index) => (
             <motion.span
               key={index}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.04, type: "spring", stiffness: 150 }}
-              className={index >= 5 ? "text-transparent bg-clip-text bg-gradient-to-r from-brand-gradient-mid to-brand-gradient-end" : "text-white"}
+              className={index >= 5 ? "text-transparent bg-clip-text bg-gradient-to-r from-brand-gradient-mid to-brand-gradient-end" : "text-on-primary"}
             >
               {char}
             </motion.span>
@@ -202,7 +202,7 @@ export default function PremiumLoading({ onComplete }: PremiumLoadingProps) {
 
       {/* Tiny subtle footer marking PWA compatibility */}
       <div className="absolute bottom-6 left-0 right-0 text-center">
-        <span className="text-[10px] font-mono tracking-widest text-white/30 uppercase">
+        <span className="text-[10px] font-mono tracking-widest text-on-primary/30 uppercase">
           Hyperlocal PWA Instant Engine
         </span>
       </div>

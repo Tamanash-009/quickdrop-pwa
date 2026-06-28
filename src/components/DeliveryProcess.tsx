@@ -6,11 +6,11 @@ export default function DeliveryProcess() {
   return (
     <section
       id="delivery-process"
-      className="py-24 px-6 md:px-12 relative overflow-hidden bg-white/30"
+      className="py-24 px-6 md:px-12 relative overflow-hidden bg-surface/30"
     >
       {/* Decorative ambient blurred spots */}
       <div className="absolute top-[20%] left-[-10%] w-[350px] aspect-square rounded-full bg-brand-cyan/5 blur-[100px]" />
-      <div className="absolute bottom-[20%] right-[-10%] w-[400px] aspect-square rounded-full bg-brand-primary/5 blur-[120px]" />
+      <div className="absolute bottom-[20%] right-[-10%] w-[400px] aspect-square rounded-full bg-primary/5 blur-[120px]" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -20,7 +20,7 @@ export default function DeliveryProcess() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="px-3.5 py-1 rounded-full bg-brand-primary/10 text-[11px] font-mono tracking-widest font-bold uppercase text-brand-primary inline-flex items-center gap-1.5 mb-4"
+            className="px-3.5 py-1 rounded-full bg-primary/10 text-[11px] font-mono tracking-widest font-bold uppercase text-primary inline-flex items-center gap-1.5 mb-4"
           >
             <span>How it works</span>
           </motion.div>
@@ -29,7 +29,7 @@ export default function DeliveryProcess() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-display font-extrabold text-4xl md:text-5xl text-brand-dark tracking-tight"
+            className="font-display font-extrabold text-4xl md:text-5xl text-on-surface tracking-tight"
           >
             Our Simple Delivery Process
           </motion.h2>
@@ -38,7 +38,7 @@ export default function DeliveryProcess() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-4 text-base md:text-lg text-brand-dark/70"
+            className="mt-4 text-base md:text-lg text-on-surface-variant"
           >
             Five simple, automated logistics milestones connecting local shops directly to your tabletop.
           </motion.p>
@@ -66,15 +66,15 @@ export default function DeliveryProcess() {
                   {/* Step Bubble & Connectors */}
                   <div className="flex items-center justify-center relative mb-6">
                     {/* Animated Ripple ring */}
-                    <span className="absolute inset-0 rounded-2xl bg-brand-primary/10 scale-110 group-hover:scale-130 opacity-60 group-hover:opacity-0 transition-all duration-500" />
+                    <span className="absolute inset-0 rounded-2xl bg-primary/10 scale-110 group-hover:scale-130 opacity-60 group-hover:opacity-0 transition-all duration-500" />
                     
                     {/* Numeric Badge Indicator */}
-                    <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gradient-to-tr from-brand-primary to-brand-gradient-end text-white text-[10px] font-extrabold flex items-center justify-center border-2 border-white shadow-sm">
+                    <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gradient-to-tr from-brand-primary to-brand-gradient-end text-on-primary text-[10px] font-extrabold flex items-center justify-center border-2 border-white shadow-sm">
                       {step.stepNumber}
                     </div>
 
                     {/* Core Vector Circle */}
-                    <div className="w-24 h-24 rounded-2xl bg-gradient-to-tr from-white to-white/70 glass border-white/80 shadow-md group-hover:shadow-xl group-hover:border-brand-primary/20 flex items-center justify-center text-brand-primary group-hover:text-white group-hover:from-brand-primary group-hover:to-brand-cyan transition-all duration-500">
+                    <div className="w-24 h-24 rounded-2xl bg-gradient-to-tr from-white to-white/70 glass border-white/80 shadow-md group-hover:shadow-xl group-hover:border-brand-primary/20 flex items-center justify-center text-primary group-hover:text-on-primary group-hover:from-brand-primary group-hover:to-brand-cyan transition-all duration-500">
                       <LucideIcon name={step.iconName} size={28} className="transition-transform duration-500 group-hover:scale-110" />
                     </div>
 
@@ -86,10 +86,10 @@ export default function DeliveryProcess() {
 
                   {/* Text Description Block */}
                   <div className="max-w-[240px] lg:max-w-none px-4 lg:px-0">
-                    <h3 className="font-display font-extrabold text-xl text-brand-dark group-hover:text-brand-primary transition-colors">
+                    <h3 className="font-display font-extrabold text-xl text-on-surface group-hover:text-primary transition-colors">
                       {step.title}
                     </h3>
-                    <p className="mt-3 text-sm text-brand-dark/70 leading-relaxed font-normal">
+                    <p className="mt-3 text-sm text-on-surface-variant leading-relaxed font-normal">
                       {step.description}
                     </p>
                   </div>

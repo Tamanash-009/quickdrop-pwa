@@ -106,9 +106,9 @@ export default function Footer({ onNavigate }: FooterProps) {
   };
 
   return (
-    <footer className="relative bg-brand-light pt-20 pb-8 px-6 md:px-12 border-t border-brand-dark/5 overflow-hidden">
+    <footer className="relative bg-background pt-20 pb-8 px-6 md:px-12 border-t border-outline overflow-hidden">
       {/* Visual glowing blobs in background */}
-      <div className="absolute bottom-[-10%] left-[20%] w-[350px] aspect-square rounded-full bg-brand-primary/5 blur-[90px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[20%] w-[350px] aspect-square rounded-full bg-primary/5 blur-[90px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10 flex flex-col gap-12">
         
@@ -118,19 +118,19 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Column 1: Brand pitch and socials */}
           <div className="lg:col-span-4 flex flex-col gap-5 text-left items-start">
             <Logo className="h-10" />
-            <p className="text-sm text-brand-dark/70 leading-relaxed max-w-sm mt-3">
+            <p className="text-sm text-on-surface-variant leading-relaxed max-w-sm mt-3">
               QuickDrop is the premier hyperlocal courier network delivering foods, fresh vegetables, groceries, and stationery staples straight to your doorstep in under 30 minutes.
             </p>
             {/* Follow Us Social Matrix */}
             <div className="flex flex-col gap-3 mt-2">
-              <h4 className="font-display font-bold text-xs tracking-widest text-brand-dark/50 uppercase">
+              <h4 className="font-display font-bold text-xs tracking-widest text-on-surface-variant uppercase">
                 Follow Us
               </h4>
               <div className="flex gap-3">
                 {socialPlatforms.map((social) => (
                   <div key={social.name} className="relative group">
                     {/* Premium Tooltip */}
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-brand-dark text-white text-[10px] font-mono tracking-wider font-extrabold rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-200 whitespace-nowrap shadow-md z-50">
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1 bg-on-surface text-on-primary text-[10px] font-mono tracking-wider font-extrabold rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-200 whitespace-nowrap shadow-md z-50">
                       {social.name}
                       {/* Tooltip Arrow */}
                       <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-brand-dark" />
@@ -142,7 +142,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                       href={social.href}
                       target="_blank"
                       rel="noreferrer"
-                      className={`w-11 h-11 rounded-full bg-white border border-brand-dark/15 flex items-center justify-center transition-all shadow-sm ${social.color}`}
+                      className={`w-11 h-11 rounded-full bg-surface border border-outline flex items-center justify-center transition-all shadow-sm ${social.color}`}
                       title={social.name}
                     >
                       {social.icon}
@@ -155,7 +155,7 @@ export default function Footer({ onNavigate }: FooterProps) {
 
           {/* Column 2: Quick Links Directory */}
           <div className="lg:col-span-2 flex flex-col gap-4 text-left">
-            <h4 className="font-display font-bold text-sm tracking-widest text-brand-dark/50 uppercase">
+            <h4 className="font-display font-bold text-sm tracking-widest text-on-surface-variant uppercase">
               Quick Links
             </h4>
             <ul className="flex flex-col gap-2.5">
@@ -164,7 +164,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   <a
                     href={link.href}
                     onClick={(e) => handleScroll(e, link.href)}
-                    className="text-sm font-semibold text-brand-dark/70 hover:text-brand-primary transition-colors"
+                    className="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors"
                   >
                     {link.label}
                   </a>
@@ -175,7 +175,7 @@ export default function Footer({ onNavigate }: FooterProps) {
 
           {/* Column 3: Active Services Index */}
           <div className="lg:col-span-3 flex flex-col gap-4 text-left">
-            <h4 className="font-display font-bold text-sm tracking-widest text-brand-dark/50 uppercase">
+            <h4 className="font-display font-bold text-sm tracking-widest text-on-surface-variant uppercase">
               Our Services
             </h4>
             <ul className="flex flex-col gap-2.5">
@@ -184,7 +184,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   <a
                     href={link.href}
                     onClick={(e) => handleScroll(e, link.href)}
-                    className="text-sm font-semibold text-brand-dark/70 hover:text-brand-primary transition-colors"
+                    className="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors"
                   >
                     {link.label}
                   </a>
@@ -195,33 +195,59 @@ export default function Footer({ onNavigate }: FooterProps) {
 
           {/* Column 4: Trust Seal & Contacts */}
           <div className="lg:col-span-3 flex flex-col gap-4 text-left">
-            <h4 className="font-display font-bold text-sm tracking-widest text-brand-dark/50 uppercase">
+            <h4 className="font-display font-bold text-sm tracking-widest text-on-surface-variant uppercase">
               Contact Center
             </h4>
             <div className="flex flex-col gap-3.5">
-              <div className="flex items-center gap-2.5 text-sm font-semibold text-brand-dark/70">
+              <div className="flex items-center gap-2.5 text-sm font-semibold text-on-surface-variant">
                 <Mail size={14} className="text-brand-cyan" />
-                <a href={`mailto:${businessConfig.contact.email}`} className="hover:text-brand-primary transition-colors">{businessConfig.contact.email}</a>
+                <a href={`mailto:${businessConfig.contact.email}`} className="hover:text-primary transition-colors">{businessConfig.contact.email}</a>
               </div>
-              <div className="flex items-center gap-2.5 text-sm font-semibold text-brand-dark/70">
+              <div className="flex items-center gap-2.5 text-sm font-semibold text-on-surface-variant">
                 <Phone size={14} className="text-brand-cyan" />
-                <a href={`tel:${businessConfig.contact.phone}`} className="hover:text-brand-primary transition-colors">{businessConfig.contact.phone}</a>
+                <a href={`tel:${businessConfig.contact.phone}`} className="hover:text-primary transition-colors">{businessConfig.contact.phone}</a>
               </div>
-              <div className="flex items-center gap-2.5 text-sm font-semibold text-brand-dark/70">
+              <div className="flex items-center gap-2.5 text-sm font-semibold text-on-surface-variant">
                 <MessageSquare size={14} className="text-emerald-500 fill-emerald-500/10 animate-pulse" />
-                <a href={`https://wa.me/${businessConfig.contact.whatsapp}`} target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors">{businessConfig.contact.phone}</a>
+                <a href={`https://wa.me/${businessConfig.contact.whatsapp}`} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">{businessConfig.contact.phone}</a>
               </div>
-              <div className="flex items-center gap-2.5 text-xs text-brand-dark/60 font-mono font-bold mt-1">
+              <div className="flex items-start gap-2.5 text-sm font-semibold text-on-surface-variant">
+                <span className="material-symbols-rounded text-sm text-primary mt-0.5">location_on</span>
+                <a href={businessConfig.contact.googleMapsUrl} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+                  {businessConfig.contact.address.street}, {businessConfig.contact.address.po}<br/>
+                  {businessConfig.contact.address.city}, {businessConfig.contact.address.district}<br/>
+                  {businessConfig.contact.address.state} {businessConfig.contact.address.postalCode}
+                </a>
+              </div>
+              <div className="flex items-center gap-2.5 text-xs text-on-surface-variant font-mono font-bold mt-1">
                 <Clock size={13} className="text-brand-cyan" />
                 <span>{businessConfig.hours.days}: {businessConfig.hours.openTime} – {businessConfig.hours.closeTime}</span>
               </div>
+              <div className="flex flex-col gap-1.5 mt-2 p-3 rounded-lg bg-primary/5 border border-brand-primary/10">
+                <div className="flex items-center justify-between text-[11px] font-mono font-bold text-on-surface-variant">
+                  <span className="flex items-center gap-1.5"><span className="material-symbols-rounded text-sm text-primary">location_on</span> Service Area</span>
+                  <span className="text-right">Nischintapur (Up to 10 KM)</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] font-mono font-bold text-on-surface-variant">
+                  <span className="flex items-center gap-1.5"><span className="material-symbols-rounded text-sm text-primary">local_shipping</span> Avg Delivery</span>
+                  <span className="text-right">~{businessConfig.delivery.averageTimeMins} Minutes</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] font-mono font-bold text-on-surface-variant">
+                  <span className="flex items-center gap-1.5"><span className="material-symbols-rounded text-sm text-emerald-500">payments</span> Delivery Fee</span>
+                  <span className="text-right">₹{businessConfig.delivery.charge}</span>
+                </div>
+                <div className="mt-1 pt-2 border-t border-brand-primary/10 flex items-center gap-1.5">
+                  <span className="flex h-1.5 w-1.5 rounded-full bg-brand-cyan animate-ping" />
+                  <span className="text-[9px] uppercase tracking-widest font-bold text-brand-cyan">🚀 Expanding Soon</span>
+                </div>
+              </div>
               
               {/* Trust Badge Card */}
-              <div className="mt-1 p-4 rounded-xl bg-white border border-brand-dark/10 flex items-center gap-2.5 shadow-sm">
+              <div className="mt-1 p-4 rounded-xl bg-surface border border-outline flex items-center gap-2.5 shadow-sm">
                 <ShieldCheck size={22} className="text-brand-cyan" />
                 <div className="flex flex-col">
-                  <span className="text-xs font-bold text-brand-dark">Insured Delivery</span>
-                  <span className="text-[10px] text-brand-dark/50">Damages fully reimbursed</span>
+                  <span className="text-xs font-bold text-on-surface">Insured Delivery</span>
+                  <span className="text-[10px] text-on-surface-variant">Damages fully reimbursed</span>
                 </div>
               </div>
             </div>
@@ -229,16 +255,16 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         </div>
 
-        <hr className="border-brand-dark/5" />
+        <hr className="border-outline" />
 
         {/* Footer Base bar: Copy, links, and design tag */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-brand-dark/50 font-bold tracking-wider">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-on-surface-variant font-bold tracking-wider">
           <p>&copy; {new Date().getFullYear()} {businessConfig.name}. All Rights Reserved.</p>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             <a
               href="/privacy-policy"
               onClick={(e) => handlePageLink(e, "/privacy-policy")}
-              className="hover:text-brand-primary transition-colors"
+              className="hover:text-primary transition-colors"
               id="footer-privacy-link"
             >
               PRIVACY POLICY
@@ -246,7 +272,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <a
               href="/terms-and-conditions"
               onClick={(e) => handlePageLink(e, "/terms-and-conditions")}
-              className="hover:text-brand-primary transition-colors"
+              className="hover:text-primary transition-colors"
               id="footer-terms-link"
             >
               TERMS & CONDITIONS
@@ -254,7 +280,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <a
               href="/copyright"
               onClick={(e) => handlePageLink(e, "/copyright")}
-              className="hover:text-brand-primary transition-colors"
+              className="hover:text-primary transition-colors"
               id="footer-copyright-link"
             >
               COPYRIGHT

@@ -4,6 +4,10 @@ import Logo from "./Logo";
 import { featuredProducts, servicesData } from "../data";
 import { handleCallNowClick, scrollToContact } from "../utils";
 import LazyImage from "./LazyImage";
+import UserMenu from "../auth/components/UserMenu";
+import ThemeToggle from "./ThemeToggle";
+import { useCart } from "../context/CartContext";
+import { ShoppingBag } from "lucide-react";
 
 interface NavbarProps {
   activeSection: string;
@@ -33,12 +37,20 @@ export default function Navbar({
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement | null>(null);
+  const { itemCount, setIsCartOpen, addToCart } = useCart();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 30);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -110,30 +122,33 @@ export default function Navbar({
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${
-          isScrolled ? "py-3 px-4 md:px-8 mt-3" : "py-5 px-6 md:px-12 mt-0"
+        className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 flex justify-center ${
+          isScrolled ? "py-3 px-4 md:px-6 lg:px-8 mt-3" : "py-4 px-5 md:px-8 lg:px-10 mt-0"
         }`}
       >
         <div
-          className={`max-w-7xl mx-auto rounded-[24px] transition-all duration-500 ${
+          className={`w-full max-w-[1440px] mx-auto rounded-[32px] transition-all duration-500 ${
             isScrolled
-              ? "glass shadow-lg border-white/60 py-3 px-5 md:px-8"
+              ? "glass shadow-lg border-outline py-3 px-5 md:px-8"
               : "bg-transparent py-2 px-0 border-transparent"
           } flex items-center justify-between gap-4`}
         >
-          {/* Brand Logo */}
-          <a
-            href="#home"
-            onClick={(e) => handleNavClick(e, "#home")}
-            className="focus:outline-none shrink-0"
-          >
-            <Logo className="h-9 md:h-11" />
-          </a>
+          {/* Brand Logo - Left Section */}
+          <div className="flex-shrink-0 z-20 flex items-center">
+            <a
+              href="#home"
+              onClick={(e) => handleNavClick(e, "#home")}
+              className="focus:outline-none shrink-0"
+            >
+              <Logo className="h-9 md:h-11" />
+            </a>
+          </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-1.5 lg:gap-2">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.slice(1);
+          {/* Desktop Navigation Links - Center Section */}
+          <div className="hidden lg:flex flex-1 justify-center z-10 min-w-0">
+            <nav className="flex items-center gap-1 xl:gap-2">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.slice(1);
               return (
                 <a
                   key={link.href}
@@ -141,8 +156,8 @@ export default function Navbar({
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`relative px-3 py-2 rounded-full text-xs lg:text-sm font-semibold tracking-wide transition-all duration-300 select-none ${
                     isActive
-                      ? "text-brand-primary font-bold"
-                      : "text-brand-dark/70 hover:text-brand-primary"
+                      ? "text-primary font-bold"
+                      : "text-on-surface-variant hover:text-primary"
                   }`}
                 >
                   {link.label}
@@ -156,21 +171,24 @@ export default function Navbar({
                 </a>
               );
             })}
-          </nav>
+            </nav>
+          </div>
 
-          {/* Interactive Desktop Search Bar */}
-          <div
-            ref={searchContainerRef}
-            className="relative search-container hidden md:block"
-          >
+          {/* Right Section: Actions & Search */}
+          <div className="flex items-center justify-end gap-2 lg:gap-4 shrink-0 z-20">
+            {/* Interactive Desktop Search Bar */}
             <div
-              className={`flex items-center gap-2 px-4 py-2 rounded-2xl border bg-white/45 backdrop-blur-md transition-all duration-300 ${
-                isSearchFocused
-                  ? "w-48 lg:w-64 border-brand-primary/40 shadow-sm ring-2 ring-brand-primary/10"
-                  : "w-36 lg:w-48 border-brand-dark/10 hover:border-brand-dark/20"
-              }`}
+              ref={searchContainerRef}
+              className="relative search-container hidden md:block"
             >
-              <span className={`material-symbols-rounded text-lg select-none transition-colors duration-300 ${isSearchFocused ? "text-brand-primary" : "text-brand-dark/40"}`}>
+              <div
+                className={`flex items-center gap-2 px-4 py-2 rounded-2xl border bg-background/45 backdrop-blur-md transition-all duration-300 ${
+                  isSearchFocused
+                    ? "w-[280px] xl:w-[320px] border-brand-primary/40 shadow-sm ring-2 ring-brand-primary/10"
+                    : "w-[240px] xl:w-[260px] border-outline hover:border-outline"
+                }`}
+              >
+              <span className={`material-symbols-rounded text-lg select-none transition-colors duration-300 ${isSearchFocused ? "text-primary" : "text-on-surface/40"}`}>
                 search
               </span>
               <input
@@ -179,14 +197,14 @@ export default function Navbar({
                 value={searchQuery}
                 onFocus={() => setIsSearchFocused(true)}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent border-none outline-none text-[11px] lg:text-xs font-semibold text-brand-dark placeholder-brand-dark/40"
+                className="w-full bg-transparent border-none outline-none text-[11px] lg:text-xs font-semibold text-on-surface placeholder-brand-dark/40"
                 id="desktop-search-input"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery("")}
-                  className="p-0.5 rounded-full hover:bg-brand-dark/5 text-brand-dark/40 hover:text-brand-dark transition-colors"
+                  className="p-0.5 rounded-full hover:bg-on-surface/5 text-on-surface/40 hover:text-on-surface transition-colors"
                 >
                   <span className="material-symbols-rounded text-sm">close</span>
                 </button>
@@ -206,10 +224,10 @@ export default function Navbar({
                   {suggestedCategories.length === 0 &&
                   suggestedProducts.length === 0 ? (
                     <div className="py-8 px-4 text-center">
-                      <p className="text-xs font-semibold text-brand-dark/40">
+                      <p className="text-xs font-semibold text-on-surface/40">
                         No matching treats found
                       </p>
-                      <p className="text-[10px] text-brand-dark/30 mt-1">
+                      <p className="text-[10px] text-on-surface/30 mt-1">
                         Try "Chowmein", "Apples", "Paneer" or "Fast Food"
                       </p>
                     </div>
@@ -218,7 +236,7 @@ export default function Navbar({
                       {/* Categories / Departments Group */}
                       {suggestedCategories.length > 0 && (
                         <div>
-                          <span className="text-[9px] font-mono font-bold tracking-widest text-brand-dark/40 uppercase block mb-2">
+                          <span className="text-[9px] font-mono font-bold tracking-widest text-on-surface/40 uppercase block mb-2">
                             Departments
                           </span>
                           <div className="flex flex-col gap-1.5">
@@ -231,22 +249,22 @@ export default function Navbar({
                                   setIsSearchFocused(false);
                                   setSearchQuery("");
                                 }}
-                                className="w-full p-2 rounded-xl hover:bg-brand-primary/5 transition-all text-left flex items-center justify-between group/cat cursor-pointer"
+                                className="w-full p-2 rounded-xl hover:bg-primary/5 transition-all text-left flex items-center justify-between group/cat cursor-pointer"
                               >
                                 <div className="flex items-center gap-2.5">
-                                  <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-primary/10 to-brand-cyan/10 text-brand-primary flex items-center justify-center">
+                                  <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-primary/10 to-brand-cyan/10 text-primary flex items-center justify-center">
                                     <span className="material-symbols-rounded text-sm">category</span>
                                   </div>
                                   <div>
-                                    <p className="text-xs font-bold text-brand-dark group-hover/cat:text-brand-primary transition-colors">
+                                    <p className="text-xs font-bold text-on-surface group-hover/cat:text-primary transition-colors">
                                       {cat.title}
                                     </p>
-                                    <p className="text-[9px] text-brand-dark/40 line-clamp-1">
+                                    <p className="text-[9px] text-on-surface/40 line-clamp-1">
                                       Browse department selection
                                     </p>
                                   </div>
                                 </div>
-                                <span className="material-symbols-rounded text-base text-brand-dark/30 group-hover/cat:text-brand-primary group-hover/cat:translate-x-0.5 transition-all">
+                                <span className="material-symbols-rounded text-base text-on-surface/30 group-hover/cat:text-primary group-hover/cat:translate-x-0.5 transition-all">
                                   arrow_right_alt
                                 </span>
                               </button>
@@ -258,7 +276,7 @@ export default function Navbar({
                       {/* Products Group */}
                       {suggestedProducts.length > 0 && (
                         <div>
-                          <span className="text-[9px] font-mono font-bold tracking-widest text-brand-dark/40 uppercase block mb-2">
+                          <span className="text-[9px] font-mono font-bold tracking-widest text-on-surface/40 uppercase block mb-2">
                             In Stock Products
                           </span>
                           <div className="flex flex-col gap-2">
@@ -266,7 +284,7 @@ export default function Navbar({
                               return (
                                 <div
                                   key={prod.id}
-                                  className="p-2 rounded-xl hover:bg-white/60 border border-transparent hover:border-white/40 transition-all flex items-center justify-between gap-3"
+                                  className="p-2 rounded-xl hover:bg-background/60 border border-transparent hover:border-white/40 transition-all flex items-center justify-between gap-3"
                                 >
                                   <div className="flex items-center gap-2.5 min-w-0">
                                     <LazyImage
@@ -274,17 +292,17 @@ export default function Navbar({
                                       alt={prod.name}
                                       category={prod.category}
                                       className="w-full h-full object-cover shrink-0"
-                                      containerClassName="w-10 h-10 rounded-lg bg-slate-100 border border-brand-dark/5 shrink-0"
+                                      containerClassName="w-10 h-10 rounded-lg bg-surface-variant border border-outline shrink-0"
                                     />
                                     <div className="min-w-0">
-                                      <p className="text-xs font-bold text-brand-dark truncate">
+                                      <p className="text-xs font-bold text-on-surface truncate">
                                         {prod.name}
                                       </p>
                                       <div className="flex items-center gap-1.5 mt-0.5">
-                                        <span className="text-[10px] font-mono font-bold text-brand-primary">
+                                        <span className="text-[10px] font-mono font-bold text-primary">
                                           ₹{prod.price}
                                         </span>
-                                        <span className="text-[9px] text-brand-dark/40">
+                                        <span className="text-[9px] text-on-surface/40">
                                           / {prod.unit}
                                         </span>
                                       </div>
@@ -293,10 +311,15 @@ export default function Navbar({
 
                                   <button
                                     type="button"
-                                    onClick={() => handleSearchProductClick(prod.name)}
-                                    className="px-3 py-1.5 rounded-lg text-[10px] font-extrabold uppercase tracking-wider transition-all bg-brand-primary text-white hover:bg-brand-primary/90 shadow-sm flex items-center gap-1 cursor-pointer select-none shrink-0"
+                                    onClick={() => {
+                                      addToCart(prod);
+                                      setIsSearchFocused(false);
+                                      setSearchQuery("");
+                                    }}
+                                    className="px-3 py-1.5 rounded-lg text-[10px] font-extrabold uppercase tracking-wider transition-all bg-primary text-on-primary hover:bg-primary/90 shadow-sm flex items-center gap-1 cursor-pointer select-none shrink-0"
                                   >
-                                    <span>Connect</span>
+                                    <ShoppingBag size={12} />
+                                    <span>Add</span>
                                   </button>
                                 </div>
                               );
@@ -311,39 +334,55 @@ export default function Navbar({
             </AnimatePresence>
           </div>
 
-          {/* Right Action Controls: Call Now & Contact Us */}
+          {/* Right Action Controls: Call Now, User Menu & Mobile Toggle */}
           <div className="flex items-center gap-2 lg:gap-3 shrink-0">
+            {/* Theme Toggle */}
+            <div className="hidden sm:block">
+              <ThemeToggle />
+            </div>
+
+            {/* User Account Menu (Auth Architecture) */}
+            <UserMenu />
+
+            {/* Cart Button */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2.5 rounded-full bg-background border border-outline shadow-sm text-on-surface hover:text-primary transition-colors flex items-center justify-center"
+              aria-label="Open Cart"
+            >
+              <ShoppingBag size={20} />
+              {itemCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-on-primary text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-white shadow-sm">
+                  {itemCount}
+                </span>
+              )}
+            </motion.button>
+
             {/* Call Now button */}
             <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               onClick={handleCallNowClick}
-              className="px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-tr from-brand-primary to-brand-gradient-end text-white shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer select-none"
+              className="hidden lg:flex px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-tr from-brand-primary to-brand-gradient-end text-on-primary shadow-md hover:shadow-lg transition-all items-center gap-2 cursor-pointer select-none"
               id="navbar-call-button"
             >
               <span className="material-symbols-rounded text-base animate-pulse font-fill">phone</span>
-              <span className="hidden sm:inline">Call Now</span>
+              <span>Call Now</span>
             </motion.button>
-
-            {/* Contact Us Scroll button */}
-            <button
-              onClick={scrollToContact}
-              className="hidden lg:flex items-center gap-1 px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-brand-dark hover:text-brand-primary hover:bg-brand-primary/5 border border-brand-dark/15 transition-all"
-            >
-              <span className="material-symbols-rounded text-base">support_agent</span>
-              <span>Contact Us</span>
-            </button>
 
             {/* Mobile Nav Menu Hamburger Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2.5 rounded-xl xl:hidden text-brand-dark hover:bg-brand-dark/5 transition-colors focus:outline-none"
+              className="p-2.5 rounded-xl xl:hidden text-on-surface hover:bg-on-surface/5 transition-colors focus:outline-none ml-1"
               aria-label="Toggle navigation menu"
             >
               <span className="material-symbols-rounded text-2xl select-none">
                 {isMobileMenuOpen ? "close" : "menu"}
               </span>
             </button>
+          </div>
           </div>
         </div>
       </header>
@@ -360,21 +399,21 @@ export default function Navbar({
           >
             {/* Mobile search bar */}
             <div className="relative w-full">
-              <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-brand-dark/10 bg-white/70">
-                <span className="material-symbols-rounded text-lg text-brand-dark/40 select-none">search</span>
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-outline bg-background/70">
+                <span className="material-symbols-rounded text-lg text-on-surface/40 select-none">search</span>
                 <input
                   type="text"
                   placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-transparent border-none outline-none text-xs font-semibold text-brand-dark placeholder-brand-dark/40"
+                  className="w-full bg-transparent border-none outline-none text-xs font-semibold text-on-surface placeholder-brand-dark/40"
                   id="mobile-search-input"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
-                    className="p-0.5 rounded-full hover:bg-brand-dark/5"
+                    className="p-0.5 rounded-full hover:bg-on-surface/5"
                   >
                     <span className="material-symbols-rounded text-sm">close</span>
                   </button>
@@ -388,12 +427,12 @@ export default function Navbar({
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="overflow-y-auto max-h-[220px] mt-2 bg-white/50 backdrop-blur-md rounded-xl border border-brand-dark/5 divide-y divide-brand-dark/5 text-left"
+                    className="overflow-y-auto max-h-[220px] mt-2 bg-background/50 backdrop-blur-md rounded-xl border border-outline divide-y divide-brand-dark/5 text-left"
                   >
                     {suggestedCategories.length === 0 &&
                     suggestedProducts.length === 0 ? (
                       <div className="py-4 px-3 text-center">
-                        <p className="text-[11px] text-brand-dark/40 font-semibold">
+                        <p className="text-[11px] text-on-surface/40 font-semibold">
                           No results found
                         </p>
                       </div>
@@ -408,15 +447,15 @@ export default function Navbar({
                               setIsMobileMenuOpen(false);
                               setSearchQuery("");
                             }}
-                            className="w-full p-2 rounded-lg hover:bg-brand-primary/5 text-left flex items-center justify-between"
+                            className="w-full p-2 rounded-lg hover:bg-primary/5 text-left flex items-center justify-between"
                           >
-                            <span className="text-xs font-extrabold text-brand-dark">
+                            <span className="text-xs font-extrabold text-on-surface">
                               {cat.title}{" "}
-                              <span className="text-[9px] font-mono font-normal text-brand-dark/40">
+                              <span className="text-[9px] font-mono font-normal text-on-surface/40">
                                 (Dept)
                               </span>
                             </span>
-                            <span className="material-symbols-rounded text-sm text-brand-primary">arrow_forward</span>
+                            <span className="material-symbols-rounded text-sm text-primary">arrow_forward</span>
                           </button>
                         ))}
                         {suggestedProducts.map((prod) => {
@@ -434,20 +473,25 @@ export default function Navbar({
                                   containerClassName="w-8 h-8 rounded-lg shrink-0"
                                 />
                                 <div className="min-w-0">
-                                  <p className="text-xs font-bold text-brand-dark truncate">
+                                  <p className="text-xs font-bold text-on-surface truncate">
                                     {prod.name}
                                   </p>
-                                  <p className="text-[10px] font-bold text-brand-primary">
+                                  <p className="text-[10px] font-bold text-primary">
                                     ₹{prod.price}
                                   </p>
                                 </div>
                               </div>
                               <button
                                 type="button"
-                                onClick={() => handleSearchProductClick(prod.name)}
-                                className="px-3 py-1 rounded-lg text-[9px] font-extrabold uppercase shrink-0 transition-all bg-brand-primary text-white"
+                                onClick={() => {
+                                  addToCart(prod);
+                                  setIsMobileMenuOpen(false);
+                                  setSearchQuery("");
+                                }}
+                                className="px-3 py-1.5 rounded-lg text-[9px] font-extrabold uppercase shrink-0 transition-all bg-primary text-on-primary flex items-center gap-1"
                               >
-                                Connect
+                                <ShoppingBag size={10} />
+                                Add
                               </button>
                             </div>
                           );
@@ -460,6 +504,11 @@ export default function Navbar({
             </div>
 
             <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between px-4 py-2 mb-2">
+                <span className="text-sm font-semibold text-on-surface-variant">Theme Appearance</span>
+                <ThemeToggle />
+              </div>
+              
               {navLinks.map((link, idx) => {
                 const isActive = activeSection === link.href.slice(1);
                 return (
@@ -472,8 +521,8 @@ export default function Navbar({
                     onClick={(e) => handleNavClick(e, link.href)}
                     className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center justify-between ${
                       isActive
-                        ? "bg-gradient-to-r from-brand-primary/10 to-brand-cyan/10 text-brand-primary"
-                        : "text-brand-dark/80 hover:bg-brand-dark/5 hover:text-brand-dark"
+                        ? "bg-gradient-to-r from-brand-primary/10 to-brand-cyan/10 text-primary"
+                        : "text-on-surface-variant hover:bg-on-surface/5 hover:text-on-surface"
                     }`}
                   >
                     <span>{link.label}</span>
@@ -483,7 +532,7 @@ export default function Navbar({
               })}
             </div>
 
-            <hr className="border-brand-dark/5" />
+            <hr className="border-outline" />
 
             {/* Mobile Auxiliary Actions: Instantly triggers dialer */}
             <div className="flex items-center gap-3 justify-between">
@@ -492,7 +541,7 @@ export default function Navbar({
                   setIsMobileMenuOpen(false);
                   handleCallNowClick();
                 }}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-[11px] font-bold uppercase tracking-wider bg-gradient-to-r from-brand-primary to-brand-gradient-end text-white shadow-md"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-[11px] font-bold uppercase tracking-wider bg-gradient-to-r from-brand-primary to-brand-gradient-end text-on-primary shadow-md"
               >
                 <span className="material-symbols-rounded text-sm font-fill">phone</span>
                 <span>Call Now</span>
@@ -503,7 +552,7 @@ export default function Navbar({
                   setIsMobileMenuOpen(false);
                   scrollToContact();
                 }}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-[11px] font-bold uppercase tracking-wider text-brand-dark border border-brand-dark/15 hover:bg-brand-primary/5 transition-all"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-[11px] font-bold uppercase tracking-wider text-on-surface border border-outline hover:bg-primary/5 transition-all"
               >
                 <span className="material-symbols-rounded text-sm">support_agent</span>
                 <span>Contact Us</span>

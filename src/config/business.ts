@@ -9,24 +9,31 @@ export const businessConfig = {
     whatsapp: "917001055879",
     email: "qdrop5262@gmail.com",
     address: {
-      street: "Salt Lake",
-      city: "Kolkata",
+      street: "Village: Nischintapur / Purba Nischintapur",
+      city: "Budge Budge",
       state: "West Bengal",
-      postalCode: "700091",
-      country: "IN"
+      postalCode: "700138",
+      country: "IN",
+      po: "Purba Nischintapur",
+      district: "South 24 Parganas"
     },
     geo: {
-      latitude: "22.5804",
-      longitude: "88.4143"
+      latitude: "22.4831", // Approximated for Budge Budge / Nischintapur
+      longitude: "88.1633"
     },
-    googlePlaceId: "ChIJxxxxxx_PLACEHOLDER_xxxxxx",
-    googleMapsUrl: "https://maps.app.goo.gl/placeholder",
-    googleReviewUrl: "https://g.page/r/placeholder/review"
+    googlePlaceId: "",
+    googleMapsUrl: "https://maps.google.com/?q=Nischintapur,Budge+Budge,South+24+Parganas,West+Bengal+700138",
+    googleReviewUrl: ""
   },
   hours: {
     days: "Monday - Sunday",
-    openTime: "07:00",
-    closeTime: "22:00"
+    openTime: "08:00",
+    closeTime: "20:00"
+  },
+  delivery: {
+    charge: 25,
+    averageTimeMins: 30,
+    radiusKm: 10,
   },
   social: {
     facebook: "https://facebook.com/quickdrop",
@@ -34,9 +41,9 @@ export const businessConfig = {
     twitter: "https://twitter.com/quickdrop"
   },
   deliveryAreas: [
-    "Salt Lake",
-    "New Town",
-    "Sector V",
-    "Rajarhat"
+    "Nischintapur",
+    "Purba Nischintapur",
+    "Budge Budge",
+    "South 24 Parganas"
   ]
 };
