@@ -10,6 +10,8 @@ import { NotificationProvider } from './context/NotificationContext';
 import { CartProvider } from './context/CartContext';
 import { ThemeProvider } from './context/ThemeContext';
 
+import PWAUpdatePrompt from './components/PWAUpdatePrompt.tsx';
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelmetProvider>
@@ -19,6 +21,7 @@ createRoot(document.getElementById('root')!).render(
             <CartProvider>
               <App />
               <ToastProvider />
+              <PWAUpdatePrompt />
             </CartProvider>
           </NotificationProvider>
         </ThemeProvider>
