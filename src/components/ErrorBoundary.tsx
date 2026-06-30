@@ -21,7 +21,7 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // In a production app, log this to a telemetry service (e.g., Sentry)
-    // console.error removed for security hardening
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
   public render() {
