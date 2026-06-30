@@ -3,12 +3,15 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig(() => {
   return {
     plugins: [
       react(), 
       tailwindcss(),
+      viteCompression({ algorithm: 'brotliCompress', ext: '.br' }),
+      viteCompression({ algorithm: 'gzip', ext: '.gz' }),
       VitePWA({
         registerType: 'prompt',
         includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'favicon-16x16.png', 'favicon-32x32.png'],

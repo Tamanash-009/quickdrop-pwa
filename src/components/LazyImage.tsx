@@ -10,6 +10,7 @@ interface LazyImageProps {
   containerClassName?: string;
   category?: string;
   referrerPolicy?: "no-referrer" | "origin" | "unsafe-url";
+  priority?: "auto" | "high" | "low";
   onClick?: () => void;
 }
 
@@ -30,8 +31,9 @@ const categoryFallbacks: Record<string, string> = {
  * Custom Hook: useLazyLoad
  * Detects when an element intersects the viewport and should begin loading its content.
  */
-function useLazyLoad() {
+function useLazyLoad(priority: "auto" | "high" | "low" = "auto") {
   const [inView, setInView] = useState(() => {
+    if (priority === "high") return true;
     if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
       return true;
     }
@@ -40,6 +42,7 @@ function useLazyLoad() {
   const elementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    if (priority === "high") return;
     const currentElement = elementRef.current;
     if (!currentElement) return;
 
@@ -62,7 +65,7 @@ function useLazyLoad() {
         observer.unobserve(currentElement);
       }
     };
-  }, [inView]);
+  }, [inView, priority]);
 
   return [elementRef, inView] as const;
 }
@@ -78,10 +81,10 @@ export default function LazyImage({
   className = "",
   containerClassName = "",
   category = "default",
-  referrerPolicy = "no-referrer",
+  priority = "auto",
   onClick,
 }: LazyImageProps) {
-  const [containerRef, inView] = useLazyLoad();
+  const [containerRef, inView] = useLazyLoad(priority);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -134,7 +137,8 @@ export default function LazyImage({
         <motion.img
           src={imageSrc}
           alt={alt}
-          loading="lazy"
+          loading={priority === "high" ? "eager" : "lazy"}
+          fetchPriority={priority === "high" ? "high" : "auto"}
           decoding="async"
           referrerPolicy={referrerPolicy}
           onLoad={() => setIsLoaded(true)}

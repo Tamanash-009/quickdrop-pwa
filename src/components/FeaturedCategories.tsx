@@ -766,6 +766,7 @@ export default function FeaturedCategories({
                 src={selectedBanner.image}
                 alt={selectedBanner.title}
                 category={selectedCategory}
+                priority="high"
                 className="w-full h-full object-cover opacity-35"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-transparent" />

@@ -11,11 +11,12 @@ import AppSkeleton from "./components/skeletons/AppSkeleton";
 import { useNotification } from "./context/NotificationContext";
 import { AuthProvider } from "./auth/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
+import Services from "./components/Services";
+import FeaturedCategories from "./components/FeaturedCategories";
+import { ReviewsSkeleton, ContactSkeleton } from "./components/skeletons/SectionSkeletons";
 
-const Services = lazy(() => import("./components/Services"));
 const WhyChooseUs = lazy(() => import("./components/WhyChooseUs"));
 const DeliveryProcess = lazy(() => import("./components/DeliveryProcess"));
-const FeaturedCategories = lazy(() => import("./components/FeaturedCategories"));
 const Recommended = lazy(() => import("./components/Recommended"));
 const AboutUs = lazy(() => import("./components/AboutUs"));
 const Reviews = lazy(() => import("./components/Reviews"));
@@ -38,7 +39,6 @@ export default function App() {
   const { info } = useNotification();
   const [selectedCategory, setSelectedCategory] = useState("All Products");
   const [activeSection, setActiveSection] = useState("home");
-  const [isLoading, setIsLoading] = useState(true);
   
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const [enquiryProduct, setEnquiryProduct] = useState("");
@@ -55,14 +55,6 @@ export default function App() {
     }
     return window.location.pathname;
   });
-
-  // Simulated asynchronous data fetching delay for the Skeleton system
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 400); // 0.4 seconds simulated load
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const handleLocationChange = () => {
@@ -151,7 +143,6 @@ export default function App() {
           <StructuredData />
           <CookieConsent />
           
-          <Suspense fallback={<AppSkeleton />}>
           {/* Main Page Core Content Grid */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -160,18 +151,24 @@ export default function App() {
           >
             {currentPath === "/privacy-policy" ? (
               <>
-                <PrivacyPolicy onNavigateHome={() => navigate("/")} />
-                <Footer onNavigate={navigate} />
+                <Suspense fallback={<AppSkeleton />}>
+                  <PrivacyPolicy onNavigateHome={() => navigate("/")} />
+                  <Footer onNavigate={navigate} />
+                </Suspense>
               </>
             ) : currentPath === "/terms-and-conditions" ? (
               <>
-                <TermsAndConditions onNavigateHome={() => navigate("/")} />
-                <Footer onNavigate={navigate} />
+                <Suspense fallback={<AppSkeleton />}>
+                  <TermsAndConditions onNavigateHome={() => navigate("/")} />
+                  <Footer onNavigate={navigate} />
+                </Suspense>
               </>
             ) : currentPath === "/copyright" ? (
               <>
-                <Copyright />
-                <Footer onNavigate={navigate} />
+                <Suspense fallback={<AppSkeleton />}>
+                  <Copyright />
+                  <Footer onNavigate={navigate} />
+                </Suspense>
               </>
             ) : currentPath === "/" || currentPath === "" ? (
               <>
@@ -186,52 +183,61 @@ export default function App() {
                 
                 {/* Interactive Core Blocks */}
                 <main>
-                  <AnimatePresence mode="wait">
-                    {isLoading ? (
-                      <motion.div
-                        key="skeleton"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        <AppSkeleton />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="content"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <Hero onStartOrdering={handleStartOrdering} />
-                        <Services onSelectCategory={handleSelectCategory} />
-                        <WhyChooseUs />
-                        <DeliveryProcess />
-                        <Recommended onEnquiry={handleOpenEnquiry} />
-                        <FeaturedCategories
-                          selectedCategory={selectedCategory}
-                          setSelectedCategory={setSelectedCategory}
-                          onEnquiry={handleOpenEnquiry}
-                        />
-                        <AboutUs />
-                        <Reviews />
-                        <FAQ />
-                        <Contact />
-                        <div className="max-w-7xl mx-auto px-6 md:px-12 mt-12 mb-8">
-                          <DeliveryCoverage />
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <motion.div
+                    key="content"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Hero onStartOrdering={handleStartOrdering} />
+                    <Services onSelectCategory={handleSelectCategory} />
+                    
+                    <Suspense fallback={<div className="py-24 flex justify-center"><div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
+                      <WhyChooseUs />
+                      <DeliveryProcess />
+                      <Recommended onEnquiry={handleOpenEnquiry} />
+                    </Suspense>
+                    
+                    <FeaturedCategories
+                      selectedCategory={selectedCategory}
+                      setSelectedCategory={setSelectedCategory}
+                      onEnquiry={handleOpenEnquiry}
+                    />
+                    
+                    <Suspense fallback={<div className="py-24 flex justify-center"><div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
+                      <AboutUs />
+                    </Suspense>
+                    
+                    <Suspense fallback={<ReviewsSkeleton />}>
+                      <Reviews />
+                    </Suspense>
+                    
+                    <Suspense fallback={<div className="py-24 flex justify-center"><div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
+                      <FAQ />
+                    </Suspense>
+                    
+                    <Suspense fallback={<ContactSkeleton />}>
+                      <Contact />
+                    </Suspense>
+                    
+                    <Suspense fallback={null}>
+                      <div className="max-w-7xl mx-auto px-6 md:px-12 mt-12 mb-8">
+                        <DeliveryCoverage />
+                      </div>
+                    </Suspense>
+                  </motion.div>
                 </main>
 
                 {/* Clean Glassmorphic Footer */}
-                {!isLoading && <Footer onNavigate={navigate} />}
+                <Suspense fallback={null}>
+                  <Footer onNavigate={navigate} />
+                </Suspense>
               </>
             ) : null}
-            <ExpandableFAB />
-            <PWAInstallPrompt />
+            <Suspense fallback={null}>
+              <ExpandableFAB />
+              <PWAInstallPrompt />
+            </Suspense>
             <MobileNav 
               activeSection={activeSection} 
               onNavigate={(href) => {
@@ -246,19 +252,22 @@ export default function App() {
             />
             
             {currentPath !== "/" && currentPath !== "" && currentPath !== "/privacy-policy" && currentPath !== "/terms-and-conditions" && currentPath !== "/copyright" && (
-              <NotFound />
+              <Suspense fallback={<AppSkeleton />}>
+                <NotFound />
+              </Suspense>
             )}
 
-            <EnquiryModal
-              isOpen={isEnquiryOpen}
-              onClose={() => setIsEnquiryOpen(false)}
-              productName={enquiryProduct}
-            />
-
-            <CartDrawer onCheckout={() => setIsCheckoutOpen(true)} />
-            <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
+            <Suspense fallback={null}>
+              <EnquiryModal
+                isOpen={isEnquiryOpen}
+                onClose={() => setIsEnquiryOpen(false)}
+                productName={enquiryProduct}
+              />
+              <CartDrawer onCheckout={() => setIsCheckoutOpen(true)} />
+              <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
+            </Suspense>
           </motion.div>
-          </Suspense>
+
       </div>
       </AuthProvider>
     </ThemeProvider>

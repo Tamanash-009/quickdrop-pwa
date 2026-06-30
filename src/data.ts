@@ -1127,6 +1127,16 @@ export const faqData: FAQItem[] = [
     id: "faq5",
     question: "Is there a minimum order limit for QuickDrop?",
     answer: "There is absolutely no minimum order limit. Whether you need a single pen, one bottle of milk, or a full daily grocery list, QuickDrop will coordinate and deliver it with premium care."
+  },
+  {
+    id: "faq6",
+    question: "How do I pay for my QuickDrop delivery?",
+    answer: "We support flexible payment options including UPI (GPay, PhonePe, Paytm), cash on delivery (COD), and direct bank transfers to our delivery executives upon arrival."
+  },
+  {
+    id: "faq7",
+    question: "Are QuickDrop products fresh and authentic?",
+    answer: "Absolutely. We handpick daily fresh vegetables, fruits, and dairy products directly from verified local suppliers. Packaged goods are thoroughly checked for expiry dates and authenticity before dispatch."
   }
 ];
 
