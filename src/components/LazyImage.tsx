@@ -83,6 +83,7 @@ export default function LazyImage({
   category = "default",
   priority = "auto",
   onClick,
+  referrerPolicy,
 }: LazyImageProps) {
   const [containerRef, inView] = useLazyLoad(priority);
   const [isLoaded, setIsLoaded] = useState(false);
